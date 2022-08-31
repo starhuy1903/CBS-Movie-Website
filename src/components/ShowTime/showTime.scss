@@ -1,0 +1,100 @@
+.showTime {
+  background: var(--medGrey);
+  padding: 40px 20px;
+  display: flex;
+
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid var(--lightGrey);
+
+    .title {
+      color: var(--white);
+      font-weight: bold;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+      padding: 4px 15px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      display: block;
+      margin-bottom: 10px;
+      width: 60px;
+
+
+      &:hover {
+        cursor: pointer;
+        border: 2px solid #13b4ff;
+        border-radius: 50%;
+      }
+    }
+
+    .logo.active {
+      border: 2px solid #13b4ff;
+      border-radius: 50%;
+    }
+  }
+
+  .right {
+    flex: 2;
+    padding: 0 20px;
+
+    .title {
+      color: var(--white);
+      font-weight: bold;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+      padding: 4px 15px;
+      margin-bottom: 20px;
+      width: 40%;
+      text-align: center;
+    }
+
+    .info {
+      display: flex;
+      margin-bottom: 30px;
+
+      .movieImg {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 30px;
+      }
+
+      .movieInfo {
+        display: flex;
+        flex-direction: column;
+
+        .cinemaName {
+          color: lightgray;
+          margin-bottom: 5px;
+        }
+        .address {
+          font-size: var(--fontSuperSmall);
+        }
+
+        .timeContainer {
+          margin-top: 10px;
+
+          .time {
+            margin-right: 10px;
+            color: var(--white);
+            background: transparent;
+            padding: 2px 4px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &:hover {
+              color: #ffdf47;
+              border-color: #ffdf47;
+            }
+          }
+        }
+      }
+    }
+  }
+}

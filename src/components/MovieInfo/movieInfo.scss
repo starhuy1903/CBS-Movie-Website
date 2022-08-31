@@ -1,0 +1,53 @@
+.movieInfo {
+
+  .wrapper {
+    padding: 40px 20px;
+
+    .content {
+      display: flex;
+      max-width: var(--maxWidth);
+      margin: 0 auto;
+      background: var(--medGrey);
+      border-radius: 20px;
+
+      .video {
+        border-radius: 20px;
+        object-fit: cover;
+      }
+
+      .description {
+        width: 100%;
+        padding: 20px 40px;
+        color: var(--white);
+        overflow: hidden;
+        position: relative;
+
+        .title {
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+
+        h3 {
+          margin-bottom: 10px;
+        }
+
+        p {
+          color: lightgray;
+          font-weight: 400;
+        }
+
+        .sticker {
+          position: absolute;
+          color: red;
+          font-weight: bold;
+          top: 4px;
+          right: 2px;
+          padding: 2px 4px;
+          border: 1px solid red;
+          border-radius: 5px;
+          transform: rotate(20deg);
+        }
+      }
+    }
+  }
+}
