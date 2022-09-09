@@ -11,7 +11,7 @@ const schema = yup.object().shape({
     matKhau: yup.string().required("This field is required").min(8, "Min length is 8 letter"),
     hoTen: yup.string().required("This field is required").matches(/^[A-Za-z ]+/g, "Name must be a letter"),
     email: yup.string().required("This field is required").email("Email is not correct format"),
-    soDt: yup.string().required("This field is required"),
+    soDT: yup.string().required("This field is required"),
 })
 
 const SignUp = () => {
@@ -24,7 +24,7 @@ const SignUp = () => {
             matKhau: "",
             hoTen: "",
             email: "",
-            soDt: ""
+            soDT: ""
         },
         onSubmit: (values) => {
             // console.log(values);
@@ -52,6 +52,8 @@ const SignUp = () => {
             setIsLoading(false)
         }
     }
+
+    console.log('render - sign up')
 
     return (
         <section className="signUp">
@@ -93,13 +95,13 @@ const SignUp = () => {
                 {formik.touched.email && formik.errors.email && <p className="errorText">{formik.errors.email}</p>}
 
                 <TextField
-                    name="soDt"
+                    name="soDT"
                     className="control"
                     label="Phone Number"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                 />
-                {formik.touched.soDt && formik.errors.soDt && <p className="errorText">{formik.errors.soDt}</p>}
+                {formik.touched.soDT && formik.errors.soDT && <p className="errorText">{formik.errors.soDT}</p>}
 
                 <div className="actions">
                     {isLoading && <CircularProgress />}

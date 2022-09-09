@@ -36,7 +36,7 @@
       }
     }
 
-    .loginBtn {
+    .btn {
       display: block;
       margin-right: 20px;
       padding: 4px 10px;
@@ -45,6 +45,9 @@
       color: var(--white);
       text-decoration: none;
       font-weight: bold;
+      background-color: transparent;
+      font-size: 1rem;
+      cursor: pointer;
 
       &:hover {
         color: #ffdf47;

@@ -1,9 +1,23 @@
 import React from 'react';
 import './mainNavigation.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from '../../assets/images/react-movie-logo.svg'
+import {useDispatch, useSelector} from "react-redux";
+import {authActions} from "../../store/auth/authSlice";
 
 const MainNavigation = () => {
+    const profile = useSelector(state => state.auth.profile)
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+
+        localStorage.removeItem('token');
+        dispatch(authActions.setProfile(null));
+        navigate("/");
+    }
+
     return (
         <header className="header">
             <div className="wrapper">
@@ -24,12 +38,15 @@ const MainNavigation = () => {
                             <Link to="/">Contact</Link>
                         </li>
                         <li>
-                            <Link to="/">Profile</Link>
+                            <Link to="/profile">Profile</Link>
                         </li>
                     </ul>
                 </nav>
-
-                <Link className="loginBtn" to="/login">Login</Link>
+                {profile ? (
+                    <button className="btn" onClick={handleLogout}>Logout</button>
+                ) : (
+                    <Link className="btn" to="/login">Login</Link>
+                )}
 
             </div>
         </header>
