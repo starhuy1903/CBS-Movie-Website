@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import {fetchProfileAction} from "./store/auth/authActions";
 import Profile from "./pages/profile";
 import PrivateRoute from "./PrivateRoute";
+import Booking from "./pages/booking";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -21,17 +22,18 @@ const App = () => {
     return (
         <Layout>
             <Routes>
-                {/*<Route path="/" element={<App/>}>*/}
-                    <Route path="/" exact element={<Home/>}/>
+                <Route path="/">
+                    <Route index element={<Home/>}/>
                     <Route path="/detail/:movieId" element={<MovieDetail/>}/>
-
+                    <Route path="/booking/:showId" element={<Booking />} />
                     <Route element={<PrivateRoute/>}>
                         <Route path="/profile" element={<Profile/>}/>
                     </Route>
-                {/*</Route>*/}
+                </Route>
 
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
+
             </Routes>
             {/*<Notification />*/}
         </Layout>

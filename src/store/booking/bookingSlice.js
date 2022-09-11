@@ -5,8 +5,10 @@ const bookingSlice = createSlice({
     initialState: {
         movies: null,
         selectedMovie: null,
-        cinemas: null,
-        schedule: null
+        selectedSeats: [],
+        cinemaSystemInfo: null,
+        cinemaSystemShowtimeInfo: null,
+        cinemaTicket: null,
     },
     reducers: {
         setMovies(state, action) {
@@ -15,11 +17,17 @@ const bookingSlice = createSlice({
         setSelectedMovie(state, action) {
             state.selectedMovie = action.payload;
         },
-        setCinemas(state, action) {
-            state.cinemas = action.payload;
+        setSelectedSeats(state, action) {
+            state.selectedSeats = action.payload;
         },
-        setSchedule(state, action) {
-            state.schedule = action.payload[0];
+        setCinemaSystemInfo(state, action) {
+            state.cinemaSystemInfo = action.payload;
+        },
+        setCinemaSystemShowtimeInfo(state, action) {
+            state.cinemaSystemShowtimeInfo = action.payload[0];
+        },
+        setCinemaTicket(state, action) {
+            state.cinemaTicket = action.payload;
         }
     }
 })

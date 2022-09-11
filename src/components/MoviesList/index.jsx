@@ -4,7 +4,6 @@ import Thumb from "../Thumb";
 import {useSelector} from "react-redux";
 
 const MoviesList = () => {
-
     const movies = useSelector(state => state.booking.movies);
 
     return (

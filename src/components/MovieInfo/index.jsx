@@ -5,8 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchMovieDetailAction} from "../../store/booking/bookingActions";
 
 const MovieInfo = () => {
-    const params = useParams();
-    const {movieId} = params;
+    const {movieId} = useParams();
     const dispatch = useDispatch();
     const movie = useSelector(state => state.booking.selectedMovie)
 

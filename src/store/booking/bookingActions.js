@@ -21,8 +21,7 @@ export const fetchMovieAction = (config, changeTotalCount) => {
             const data = await fetchHandler();
             // changeTotalCount(data.totalCount);
             dispatch(bookingActions.setMovies(data))
-            // console.log('callAPI - async')
-            // console.log(config.currentPage)
+
         } catch (error) {
             console.log(error);
         } finally {
@@ -48,9 +47,7 @@ export const fetchMovieDetailAction = (movieId) => {
         try {
             dispatch(uiActions.setLoading(true))
             const data = await fetchHandler();
-            // console.log(data)
             dispatch(bookingActions.setSelectedMovie(data))
-
         } catch (error) {
             console.log(error)
         } finally {
@@ -59,14 +56,14 @@ export const fetchMovieDetailAction = (movieId) => {
     }
 }
 
-export const fetchCinemasAction = async (dispatch) => {
+export const fetchCinemaSystemInfoAction = async (dispatch) => {
     try {
         const res = await api.request({
             url: "/api/QuanLyRap/LayThongTinHeThongRap",
             method: "GET",
         })
 
-        dispatch(bookingActions.setCinemas(res.data.content))
+        dispatch(bookingActions.setCinemaSystemInfo(res.data.content))
         return res.data.content
     } catch (error) {
         console.log(error)
@@ -74,19 +71,37 @@ export const fetchCinemasAction = async (dispatch) => {
 }
 
 
-export const fetchMovieScheduleAction = (movieId) => {
+export const fetchMovieScheduleAction = (id) => {
     return async (dispatch) => {
         try {
             const res = await api.request({
                 url: "/api/QuanLyRap/LayThongTinLichChieuHeThongRap",
                 method: "GET",
                 params: {
-                    maHeThongRap: movieId,
+                    maHeThongRap: id,
                     maNhom: "GP02"
                 }
             })
 
-            dispatch(bookingActions.setSchedule(res.data.content))
+            dispatch(bookingActions.setCinemaSystemShowtimeInfo(res.data.content))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const fetchCinemaTicket = (showId) => {
+    return async (dispatch) => {
+        try {
+            const res = await api.request({
+                url: "/api/QuanLyDatVe/LayDanhSachPhongVe",
+                method: "GET",
+                params: {
+                    MaLichChieu: showId,
+                }
+            })
+
+            dispatch(bookingActions.setCinemaTicket(res.data.content))
         } catch (error) {
             console.log(error)
         }

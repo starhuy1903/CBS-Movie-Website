@@ -72,6 +72,7 @@
           color: lightgray;
           margin-bottom: 5px;
         }
+
         .address {
           font-size: var(--fontSuperSmall);
         }
@@ -79,7 +80,8 @@
         .timeContainer {
           margin-top: 10px;
 
-          .time {
+          .timeButton {
+            text-decoration: none;
             margin-right: 10px;
             color: var(--white);
             background: transparent;
