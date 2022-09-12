@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './mainNavigation.scss'
 import {Link, useNavigate} from "react-router-dom";
 import logo from '../../assets/images/react-movie-logo.svg'
 import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../store/auth/authSlice";
+import {Header, Logo, Navbar, Profile, Wrapper} from "./MainNavigation.styles";
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const MainNavigation = () => {
     const profile = useSelector(state => state.auth.profile)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isNavExpanded, setIsNavExpanded] = useState(false)
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -19,15 +23,16 @@ const MainNavigation = () => {
     }
 
     return (
-        <header className="header">
-            <div className="wrapper">
-                <Link className="logo" to="/">
-                    <img className="logoImg"
-                         src={logo}
-                         alt="logo"/>
-                </Link>
-                <nav className="navContainer">
-                    <ul className="nav">
+        <Header>
+            <Wrapper>
+                <Logo>
+                    <Link to="/">
+                        <img src={logo}
+                             alt="logo"/>
+                    </Link>
+                </Logo>
+                <Navbar className={isNavExpanded && "expanded"}>
+                    <ul>
                         <li>
                             <Link to="/">Home</Link>
                         </li>
@@ -37,19 +42,27 @@ const MainNavigation = () => {
                         <li>
                             <Link to="/">Contact</Link>
                         </li>
-                        <li>
-                            <Link to="/profile">Profile</Link>
-                        </li>
                     </ul>
-                </nav>
-                {profile ? (
-                    <button className="btn" onClick={handleLogout}>Logout</button>
-                ) : (
-                    <Link className="btn" to="/login">Login</Link>
-                )}
-
-            </div>
-        </header>
+                    <Profile>
+                        {profile ? (
+                            <Link to="/profile">
+                                <AccountCircleIcon className="icon"/>
+                                <span>{profile.hoTen}</span>
+                            </Link>
+                        ) : (
+                            <Link to="/login">
+                                <AccountCircleIcon className="icon"/>
+                                <span>Login</span>
+                            </Link>
+                        )}
+                    </Profile>
+                </Navbar>
+                <MenuIcon
+                    className="menuIcon"
+                    onClick={() => setIsNavExpanded(!isNavExpanded)}
+                />
+            </Wrapper>
+        </Header>
     );
 };
 
