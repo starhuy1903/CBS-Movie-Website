@@ -47,7 +47,7 @@ const Login = () => {
             localStorage.setItem('token', res.data.content.accessToken)
             // console.log(res.data)
             dispatch(authActions.setProfile(profile))
-            navigate("/");
+            navigate(-2);
         } catch (error) {
             console.log(error)
         } finally {

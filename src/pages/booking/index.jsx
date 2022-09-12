@@ -2,8 +2,7 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCinemaTicket} from "../../store/booking/bookingActions";
-import {Container, Left, Right} from "./Booking.styles";
-import BookingMovieInfo from "../../components/BookingMovieInfo";
+import {CinemaInfo, Container, Guide, Item, Left, Name, Right, Screen} from "./Booking.styles";
 import CinemaSeat from "../../components/CinemaSeat";
 import TicketInfo from "../../components/TicketInfo";
 import Payment from "../../components/Payment";
@@ -11,11 +10,6 @@ import Payment from "../../components/Payment";
 const Booking = () => {
     const {showId} = useParams();
     const dispatch = useDispatch()
-
-    // const {
-    //     thongTinPhim: movieInfo,
-    //     danhSachGhe: seatList
-    // } = useSelector(state => state.booking.cinemaTicket)
 
     const cinemaTicket = useSelector(state => state.booking.cinemaTicket)
 
@@ -26,12 +20,34 @@ const Booking = () => {
     return (
         <Container>
             <Left>
-                <BookingMovieInfo movieInfo={cinemaTicket?.thongTinPhim} />
+                <CinemaInfo>
+                    <Name>{cinemaTicket?.thongTinPhim.tenCumRap}</Name>
+                    <Screen />
+                    <p>Screen</p>
+                </CinemaInfo>
                 <CinemaSeat seatList={cinemaTicket?.danhSachGhe} />
+                <Guide>
+                    <Item color='var(--selectedColor)'>
+                        <span />
+                        selected
+                    </Item>
+                    <Item color='var(--availableColor)'>
+                        <span />
+                        available
+                    </Item>
+                    <Item color='var(--vipSeatColor)'>
+                        <span />
+                        vip
+                    </Item>
+                    <Item color='var(--soldColor)'>
+                        <span />
+                        sold
+                    </Item>
+                </Guide>
             </Left>
             <Right>
-                <TicketInfo></TicketInfo>
-                <Payment></Payment>
+                <TicketInfo />
+                <Payment />
             </Right>
         </Container>
     );

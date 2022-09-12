@@ -10,6 +10,7 @@ import {fetchProfileAction} from "./store/auth/authActions";
 import Profile from "./pages/profile";
 import PrivateRoute from "./PrivateRoute";
 import Booking from "./pages/booking";
+import {GlobalStyle} from "./GlobalStyle";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -25,9 +26,9 @@ const App = () => {
                 <Route path="/">
                     <Route index element={<Home/>}/>
                     <Route path="/detail/:movieId" element={<MovieDetail/>}/>
-                    <Route path="/booking/:showId" element={<Booking />} />
                     <Route element={<PrivateRoute/>}>
                         <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/booking/:showId" element={<Booking/>}/>
                     </Route>
                 </Route>
 
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/signup" element={<SignUp/>}/>
 
             </Routes>
+            <GlobalStyle/>
             {/*<Notification />*/}
         </Layout>
     );

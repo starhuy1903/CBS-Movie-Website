@@ -12,6 +12,7 @@ const CinemaSeat = ({seatList}) => {
         return <p>Loading...</p>
 
     const handleChooseSeat = (seat) => {
+        if(seat.daDat) return;
         const foundSeat = selectedSeats?.find(selectedSeat => selectedSeat.maGhe === seat.maGhe)
         if (foundSeat) {
             dispatch(bookingActions.setSelectedSeats(selectedSeats.filter(selectedSeat => selectedSeat.maGhe !== seat.maGhe)))
@@ -40,7 +41,7 @@ const CinemaSeat = ({seatList}) => {
                         onClick={() => handleChooseSeat({...seat, cinemaSeatName: rowName[index] + String(stt + 1)})}
                         disable={seat.daDat}
                         selected={Boolean(selectedSeats?.find(selectedSeat => selectedSeat.maGhe === seat.maGhe))}
-
+                        vip={seat.loaiGhe === 'Vip'}
                     >
                         {rowName[index]}{stt + 1}
                     </Seat>

@@ -23,28 +23,37 @@ export const Row = styled.tr`
 
 export const Seat = styled.td`
   border-radius: 5px;
-  background-color: #F7F9FD;
+  background-color: var(--availableColor);
   height: 30px;
   width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 12px;
-  
+
   &:hover {
     cursor: pointer;
   }
+  
+  ${({vip}) => vip && `
+    background: var(--vipSeatColor);
+  `};
+
+  ${({selected}) => selected && `
+    background: var(--selectedColor);
+  `}
 
   ${({disable}) => disable && `
-    background: #007bff;
-    cursor: none;
+    background: var(--soldColor);
+    &:hover {
+      cursor: not-allowed;
+    }
   `};
-  
-  ${({selected}) => selected && `
-    background: #03A9F4;
-  `}
-  
-  &.sold {
-    
+
+  @media screen and (max-width: 720px) {
+    height: 20px;
+    width: 20px;
+    font-size: 9px;
   }
+  
 `
