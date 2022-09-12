@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import HeroImage from "../../components/HeroImage";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchMovieAction} from "../../store/booking/bookingActions";
+import {fetchBannerList, fetchMovieAction} from "../../store/booking/bookingActions";
 import './home.scss'
 import MoviesList from "../../components/MoviesList";
 import {CircularProgress, Pagination} from "@mui/material";
@@ -9,12 +9,15 @@ import {CircularProgress, Pagination} from "@mui/material";
 const Home = () => {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => state.ui.isLoading)
+    const bannerList = useSelector(state => state.booking.bannerList)
 
     const [config, setConfig] = useState({
         currentPage: 1,
         pageSize: 10,
         totalPages: 0,
     })
+
+    // console.log(bannerList)
 
     // console.log(config.currentPage)
 
@@ -31,13 +34,17 @@ const Home = () => {
         fetchMovies();
     }, [config.currentPage, fetchMovies])
 
+    useEffect(() => {
+        dispatch(fetchBannerList);
+    }, [dispatch])
+
     const handleChangePage = (event, page) => {
         setConfig({...config, currentPage: page})
     }
 
     return (
         <>
-            <HeroImage/>
+            <HeroImage bannerList={bannerList}  />
 
             {isLoading ? (
                 <CircularProgress style={{textAlign: "center", marginTop: "20px"}} />

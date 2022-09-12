@@ -27,8 +27,21 @@ export const fetchMovieAction = (config, changeTotalCount) => {
         } finally {
             dispatch(uiActions.setLoading(false))
         }
-
     }
+}
+
+export const fetchBannerList = async (dispatch) => {
+    try {
+        const res = await api.request({
+            url: "/api/QuanLyPhim/LayDanhSachBanner",
+            method: "GET",
+        })
+
+        dispatch(bookingActions.setBannerList(res.data.content))
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 export const fetchMovieDetailAction = (movieId) => {
