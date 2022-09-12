@@ -108,3 +108,19 @@ export const fetchCinemaTicket = (showId) => {
         }
     }
 }
+
+export const bookCinemaTicket = (cinemaTickets) => {
+    return async (dispatch) => {
+        try {
+            const res = await api.request({
+                url: "/api/QuanLyDatVe/DatVe",
+                method: "POST",
+                data: cinemaTickets,
+            })
+            console.log(res)
+            dispatch(bookingActions.setSelectedSeats([]))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}

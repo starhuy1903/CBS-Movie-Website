@@ -14,14 +14,33 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ZaloPayImg from '../../assets/images/zalopay-logo.png'
 import MomoImg from '../../assets/images/momo-logo.png'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {bookCinemaTicket} from "../../store/booking/bookingActions";
+import {useNavigate} from "react-router-dom";
 
 
 const Payment = () => {
     const selectedSeats = useSelector(state => state.booking.selectedSeats)
+    const cinemaTicket = useSelector(state => state.booking.cinemaTicket)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const amount = selectedSeats.reduce((acc, seat ) => acc + seat.giaVe, 0);
     const canPayment = selectedSeats.length !== 0;
+
+    const handlePayment = () => {
+        const data = {
+            maLichChieu: cinemaTicket.thongTinPhim.maLichChieu,
+            danhSachVe: selectedSeats.map(seat => ({
+                maGhe: seat.maGhe,
+                giaVe: seat.giaVe
+            }))
+        }
+        dispatch(bookCinemaTicket(data))
+
+        alert('Booking was successful!')
+        navigate('/')
+    }
 
     return (
         <Container>
@@ -69,7 +88,10 @@ const Payment = () => {
                         </Message>
                     )}
                 </MethodContainer>
-                <Button disable={!canPayment}>
+                <Button
+                    onClick={handlePayment}
+                    disable={!canPayment}
+                >
                     <span>Checkout</span>
                     <Amount>{amount} đ</Amount>
                 </Button>
