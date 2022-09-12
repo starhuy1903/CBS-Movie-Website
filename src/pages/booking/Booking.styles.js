@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Left = styled.div`
   flex: 5;
   background-color: #6d6d6d;
-  min-height: 100vh;
+  max-height: 100vh;
 `
 
 export const CinemaInfo = styled.div`
@@ -67,5 +67,18 @@ export const Item = styled.div`
       background-color: ${({color}) => color};
       margin-right: 0.5rem;
     }
+`
+
+export const ResetButton = styled.button`
+  border: none;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: #a7c0cd;
+  font-weight: 600;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `
 

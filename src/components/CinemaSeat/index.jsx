@@ -13,11 +13,13 @@ const CinemaSeat = ({seatList}) => {
 
     const handleChooseSeat = (seat) => {
         if(seat.daDat) return;
+
         const foundSeat = selectedSeats?.find(selectedSeat => selectedSeat.maGhe === seat.maGhe)
         if (foundSeat) {
             dispatch(bookingActions.setSelectedSeats(selectedSeats.filter(selectedSeat => selectedSeat.maGhe !== seat.maGhe)))
             return;
         }
+        if(selectedSeats.length === 8) return;
         dispatch(bookingActions.setSelectedSeats([...selectedSeats, seat]))
     }
 

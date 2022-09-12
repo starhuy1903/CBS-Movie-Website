@@ -2,10 +2,11 @@ import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchCinemaTicket} from "../../store/booking/bookingActions";
-import {CinemaInfo, Container, Guide, Item, Left, Name, Right, Screen} from "./Booking.styles";
+import {CinemaInfo, Container, Guide, Item, Left, Name, ResetButton, Right, Screen} from "./Booking.styles";
 import CinemaSeat from "../../components/CinemaSeat";
 import TicketInfo from "../../components/TicketInfo";
 import Payment from "../../components/Payment";
+import {bookingActions} from "../../store/booking/bookingSlice";
 
 const Booking = () => {
     const {showId} = useParams();
@@ -16,6 +17,10 @@ const Booking = () => {
     useEffect(() => {
         dispatch(fetchCinemaTicket(showId))
     }, [dispatch])
+
+    const handleReset = () => {
+        dispatch(bookingActions.setSelectedSeats([]))
+    }
 
     return (
         <Container>
@@ -43,7 +48,11 @@ const Booking = () => {
                         <span />
                         sold
                     </Item>
+                    <ResetButton onClick={handleReset}>
+                        Reset
+                    </ResetButton>
                 </Guide>
+
             </Left>
             <Right>
                 <TicketInfo />

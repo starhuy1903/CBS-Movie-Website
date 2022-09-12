@@ -102,6 +102,7 @@ export const fetchCinemaTicket = (showId) => {
             })
 
             dispatch(bookingActions.setCinemaTicket(res.data.content))
+            dispatch(bookingActions.setSelectedSeats([]))
         } catch (error) {
             console.log(error)
         }
