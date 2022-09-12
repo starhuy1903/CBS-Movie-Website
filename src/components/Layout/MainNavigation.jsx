@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './mainNavigation.scss'
 import {Link, useNavigate} from "react-router-dom";
 import logo from '../../assets/images/react-movie-logo.svg'
 import {useDispatch, useSelector} from "react-redux";
