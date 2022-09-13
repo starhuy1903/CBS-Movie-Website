@@ -1,13 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
-import bookingSlice from "./booking/bookingSlice";
-import authSlice from "./auth/authSlice";
-import uiSlice from "./ui/uiSlice";
+import bookingReducer from "./booking/bookingSlice";
+import authReducer from "./auth/authSlice";
+import moviesReducer from "./movies/moviesSlice";
 
 const store = configureStore({
     reducer: {
-        booking: bookingSlice.reducer,
-        auth: authSlice.reducer,
-        ui: uiSlice.reducer,
+        movies: moviesReducer,
+        booking: bookingReducer,
+        auth: authReducer,
     }
 })
 

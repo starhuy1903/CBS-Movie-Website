@@ -3,8 +3,6 @@ import {createSlice} from "@reduxjs/toolkit";
 const bookingSlice = createSlice({
     name: "booking",
     initialState: {
-        bannerList: [],
-        movies: null,
         selectedMovie: null,
         selectedSeats: [],
         cinemaSystemInfo: null,
@@ -12,12 +10,6 @@ const bookingSlice = createSlice({
         cinemaTicket: null,
     },
     reducers: {
-        setBannerList(state, action) {
-            state.bannerList = action.payload;
-        },
-        setMovies(state, action) {
-            state.movies = action.payload;
-        },
         setSelectedMovie(state, action) {
             state.selectedMovie = action.payload;
         },
@@ -38,4 +30,4 @@ const bookingSlice = createSlice({
 
 export const bookingActions = bookingSlice.actions;
 
-export default bookingSlice;
+export default bookingSlice.reducer;

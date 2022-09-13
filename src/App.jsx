@@ -1,5 +1,5 @@
 import Layout from "./components/Layout";
-import Home from "./pages/home/Home";
+import Home from "./pages/home";
 import {Route, Routes} from "react-router-dom";
 import MovieDetail from "./pages/movieDetail";
 import Login from "./pages/login";
