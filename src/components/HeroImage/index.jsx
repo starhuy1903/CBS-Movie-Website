@@ -24,8 +24,6 @@ const HeroImage = () => {
                     navigation
                     autoplay={true}
                     loop="true"
-                    // onSwiper={(swiper) => console.log(swiper)}
-                    // onSlideChange={() => console.log('slide change')}
                 >
                     {bannerList.map(banner => (
                         <SwiperSlide key={banner.maBanner}>

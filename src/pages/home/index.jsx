@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import HeroImage from "../../components/HeroImage";
 import {useDispatch, useSelector} from "react-redux";
 import MoviesList from "../../components/MoviesList";
@@ -8,35 +8,27 @@ import {
     fetchBannerList,
     fetchMoviesList,
     getMoviesError,
-    getMoviesStatus,
+    getMoviesStatus, selectMovieList,
 } from "../../store/movies/moviesSlice";
 import {Container} from "./Home.styles";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const movies = useSelector(state => state.movies.movies)
+    const location = useLocation();
+    const navigate = useNavigate();
+    const movies = useSelector(selectMovieList)
     const moviesStatus = useSelector(getMoviesStatus)
     const error = useSelector(getMoviesError)
 
+    const currentPage = new URLSearchParams(location.search).get("page") || 1
+
     const isLoading = moviesStatus === 'loading';
 
-    const [config, setConfig] = useState({
-        currentPage: 1,
-        pageSize: 10,
-        totalPages: 0,
-    })
-
-    // console.log(config)
-
-    // console.log(config.currentPage)
-
-    const changeTotalCount = useCallback((total) => {
-        setConfig({...config, totalPages: total})
-    }, [])
-
-    useEffect(() => {
-        dispatch(fetchMoviesList({config, changeTotalCount}));
-    }, [config.currentPage, dispatch])
+    const handleChangePage = (event, page) => {
+        dispatch(fetchMoviesList(Number(page)))
+        navigate(`/?page=${page}`)
+    }
 
     useEffect(() => {
         if(moviesStatus === 'idle') {
@@ -44,9 +36,11 @@ const Home = () => {
         }
     }, [moviesStatus, dispatch])
 
-    const handleChangePage = (event, page) => {
-        setConfig({...config, currentPage: page})
-    }
+    useEffect(() => {
+        if(!movies || Number(currentPage) !== movies.currentPage) {
+            dispatch(fetchMoviesList(currentPage));
+        }
+    }, [dispatch])
 
     let content;
 
@@ -62,8 +56,10 @@ const Home = () => {
                 <Pagination
                     className="pagination"
                     onChange={handleChangePage}
-                    count={config.totalPages}
-                    color="secondary"
+                    count={movies?.totalPages || 0}
+                    color="primary"
+                    size="large"
+                    page={movies?.currentPage || 1}
                 />
             </>
         )

@@ -9,17 +9,16 @@ export const fetchBannerList = createAsyncThunk("movies/fetchBannerList", async 
     return res.data.content;
 })
 
-export const fetchMoviesList = createAsyncThunk("movies/fetchMoviesList", async ({config, changeTotalCount}) => {
+export const fetchMoviesList = createAsyncThunk("movies/fetchMoviesList", async (currentPage) => {
     const res = await api.request({
         url: "/api/QuanLyPhim/LayDanhSachPhimPhanTrang",
         method: "GET",
         params: {
             maNhom: "GP02",
-            soTrang: config.currentPage,
-            soPhanTuTrenTrang: config.pageSize,
+            soTrang: currentPage,
+            soPhanTuTrenTrang: 10,
         }
     })
-    // changeTotalCount(res.data.content.movies.totalPages)
     return res.data.content;
 })
 
