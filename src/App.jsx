@@ -37,11 +37,8 @@ const App = () => {
                     </Route>
                 </Route>
 
-
-
             </Routes>
             <GlobalStyle/>
-            {/*<Notification />*/}
         </Layout>
     );
 }

@@ -6,7 +6,7 @@ const checkLogin = () => !!localStorage.getItem('token');
 export const PrivateRoute = () => {
     return checkLogin() ? (
         <Outlet />
-    ) : (<Navigate to="/login" />)
+    ) : (<Navigate to="/login" replace />)
 };
 
 export const AuthRoute = () => {
