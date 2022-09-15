@@ -1,12 +1,28 @@
-import React, {useState} from 'react';
-import './login.scss'
-import {Button, CircularProgress, TextField} from "@mui/material";
+import React, {useEffect} from 'react';
 import * as yup from 'yup';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
-import api from "../../api/api";
 import {Link, useNavigate} from "react-router-dom";
-import {authActions} from "../../store/auth/authSlice";
+import {authActions, getAuthError, getAuthStatus, signIn} from "../../store/auth/authSlice";
+import {
+    Bottom,
+    Button,
+    Container, ErrorAction,
+    ErrorText,
+    Feature,
+    Form,
+    IconContainer,
+    Left,
+    Logo,
+    Right,
+    Title
+} from "./Login.styles";
+import movieLogo from '../../assets/images/react-movie-logo.svg'
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GoogleIcon from '@mui/icons-material/Google';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HttpsIcon from '@mui/icons-material/Https';
+import Spinner from "../../components/Spinner";
 
 const schema = yup.object().shape({
     taiKhoan: yup.string().required("This field is required"),
@@ -14,80 +30,112 @@ const schema = yup.object().shape({
 })
 
 const Login = () => {
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+        const dispatch = useDispatch();
+        const navigate = useNavigate();
+        const authStatus = useSelector(getAuthStatus)
+        const error = useSelector(getAuthError)
 
-    const formik = useFormik({
-        initialValues: {
-            taiKhoan: "",
-            matKhau: "",
-        },
-        onSubmit: (values) => {
-            // console.log(values)
-            signIn(values)
-        },
-        validationSchema: schema,
-        validateOnChange: false,
-        validateOnBlur: true
-    })
+        const formik = useFormik({
+            initialValues: {
+                taiKhoan: "",
+                matKhau: "",
+            },
+            onSubmit: (user, {resetForm}) => {
+                dispatch(signIn(user))
+                resetForm();
+            },
+            validationSchema: schema,
+            validateOnChange: false,
+            validateOnBlur: true
+        })
 
-    const signIn = async (user) => {
-        try {
-            setIsLoading(true)
-            const res = await api.request({
-                url: '/api/QuanLyNguoiDung/DangNhap',
-                method: "POST",
-                data: user
-            })
+        useEffect(() => {
+            if (authStatus === 'succeeded') {
+                navigate(-1);
+            }
+        }, [navigate, authStatus])
 
-            const profile = {...res.data.content}
-            delete profile.accessToken;
+        useEffect(() => {
+            if(authStatus === 'failed' && Object.values(formik.touched).some(item => item)) {
+                dispatch(authActions.setStatus('idle'))
+                dispatch(authActions.resetError)
+            }
 
-            localStorage.setItem('token', res.data.content.accessToken)
-            // console.log(res.data)
-            dispatch(authActions.setProfile(profile))
-            navigate(-2);
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setIsLoading(false)
-        }
+            return () => {
+                if(authStatus === 'failed') {
+                    dispatch(authActions.setStatus('idle'))
+                    dispatch(authActions.resetError)
+                }
+            }
+        }, [dispatch, authStatus, formik.touched])
+
+        return (
+            <Container>
+                <Left>
+                    {authStatus === 'loading' ? (
+                        <Spinner/>
+                    ) : (<>
+                        <Logo src={movieLogo}/>
+                        <Title>Sign in to Account</Title>
+                        <IconContainer>
+                            <FacebookIcon className="icon"/>
+                            <GoogleIcon className="icon"/>
+                        </IconContainer>
+                        <Form onSubmit={formik.handleSubmit}>
+                            <div className="form-control">
+                                <div className="inputContainer">
+                                    <AccountCircleIcon className="inputIcon"/>
+                                    <input
+                                        name="taiKhoan"
+                                        type="text"
+                                        placeholder="Username"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </div>
+                                {formik.touched.taiKhoan && formik.errors.taiKhoan &&
+                                    <ErrorText>{formik.errors.taiKhoan}</ErrorText>}
+                            </div>
+                            <div className="form-control">
+                                <div className="inputContainer">
+                                    <HttpsIcon className="inputIcon"/>
+                                    <input
+                                        name="matKhau"
+                                        type="password"
+                                        placeholder="Password"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </div>
+                                {formik.touched.matKhau && formik.errors.matKhau &&
+                                    <ErrorText>{formik.errors.matKhau}</ErrorText>}
+                            </div>
+                            <Feature>
+                                <div className="rememberMe">
+                                    <label>
+                                        <input type="checkbox"/>
+                                        Remember me
+                                    </label>
+                                </div>
+                                <Link to="/login">Forgot Password?</Link>
+                            </Feature>
+                            <Button>
+                                Sign in
+                            </Button>
+                            {authStatus === 'failed' && <ErrorAction>{error}</ErrorAction>}
+                        </Form>
+
+                        <Bottom>
+                            <p>Don't have an account yet?</p>
+                            <Link to="/signup">Sign up</Link>
+                        </Bottom>
+                    </>)}
+                </Left>
+
+                <Right/>
+            </Container>
+        );
     }
-
-
-    return (
-        <section className="login">
-            <h1>Login</h1>
-            <form onSubmit={formik.handleSubmit} className="form">
-                <TextField
-                    name="taiKhoan"
-                    className="control"
-                    required
-                    id="outlined-required"
-                    label="Username"
-                    onChange={formik.handleChange}
-                />
-                <TextField
-                    name="matKhau"
-                    className="control"
-                    required
-                    id="outlined-password-input"
-                    label="Password"
-                    type="password"
-                    // autoComplete="current-password"
-                    onChange={formik.handleChange}
-                />
-                <div className="actions">
-                    {isLoading && <CircularProgress />}
-                    {!isLoading &&
-                        <Button type="submit" variant="contained">Login</Button>
-                    }
-                    <Link to="/signup">Create new account</Link>
-                </div>
-            </form>
-        </section>
-    );
-};
+;
 
 export default Login;
