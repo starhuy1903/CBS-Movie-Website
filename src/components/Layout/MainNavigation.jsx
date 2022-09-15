@@ -45,14 +45,13 @@ const MainNavigation = () => {
                     </ul>
                     <Profile>
                         {profile && (
-                            <Link to="/profile">
+                            <Link className="profileBtn" to="/profile">
                                 <AccountCircleIcon className="icon"/>
                                 <span>{profile.hoTen}</span>
                             </Link>
                         )}
                         {!profile && location.pathname !== '/login' &&
-                            (<Link to="/login">
-                                <AccountCircleIcon className="icon"/>
+                            (<Link className="loginBtn" to="/login">
                                 <span>Login</span>
                             </Link>)
                         }

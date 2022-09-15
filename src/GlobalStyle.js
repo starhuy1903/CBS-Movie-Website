@@ -8,6 +8,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   
+  body {
+    background-color: #212121;;
+  }
+  
   :root {
     --maxWidth: 1280px;
     --white: #eee;

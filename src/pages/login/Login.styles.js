@@ -136,7 +136,6 @@ export const Feature = styled.div`
 
   a {
     color: white;
-    //font-size: 14px;
   }
 `
 
@@ -151,13 +150,16 @@ export const Button = styled.button`
   font-size: 1.25rem;
   font-weight: 600;
   color: white;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
-    color: #29b6f6;
+    color: #fff;
     border-color: #29b6f6;
+    background-color: #29b6f6;
+    box-shadow: 0px 15px 20px #29b6f6;
   }
+
 `
 
 export const Bottom = styled.div`
