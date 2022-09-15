@@ -6,18 +6,19 @@ import Login from "./pages/login";
 import SignUp from "./pages/signUp";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
-import {fetchProfileAction} from "./store/auth/authActions";
 import Profile from "./pages/profile";
-import PrivateRoute from "./PrivateRoute";
 import Booking from "./pages/booking";
 import {GlobalStyle} from "./GlobalStyle";
+import {AuthRoute, PrivateRoute} from "./GuardRoute";
+import {fetchProfile} from "./store/auth/authSlice";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // console.log("loading")
-        dispatch(fetchProfileAction)
+        if(localStorage.getItem('token')) {
+            dispatch(fetchProfile())
+        }
     }, [])
 
     return (
@@ -30,10 +31,13 @@ const App = () => {
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/booking/:showId" element={<Booking/>}/>
                     </Route>
+                    <Route element={<AuthRoute />}>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element={<SignUp/>}/>
+                    </Route>
                 </Route>
 
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/signup" element={<SignUp/>}/>
+
 
             </Routes>
             <GlobalStyle/>
