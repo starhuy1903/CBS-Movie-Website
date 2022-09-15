@@ -22,15 +22,9 @@ const TicketInfo = () => {
 
     const movieInfo = cinemaTicket?.thongTinPhim;
 
-    // const renderBarcode = () => {
-    //     return (
-    //         <svg style={{width: '100%'}} ref={inputRef}/>
-    //     )
-    // }
-
     if (!movieInfo) return null;
 
-    console.log(selectedSeats)
+    // console.log(selectedSeats)
 
     return (
         <Container>

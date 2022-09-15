@@ -56,9 +56,9 @@ const Home = () => {
                 <Pagination
                     className="pagination"
                     onChange={handleChangePage}
-                    count={movies?.totalPages || 0}
                     color="primary"
                     size="large"
+                    count={movies?.totalPages || 0}
                     page={movies?.currentPage || 1}
                 />
             </>

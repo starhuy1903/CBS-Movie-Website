@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  background: rgb(0,0,0);
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(42,37,60,1) 50%, rgba(29,21,121,0.7852063301282051) 94%);
-
   padding: 0 20px;
   position: sticky;
   top: 0;

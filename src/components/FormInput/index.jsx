@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import * as yup from "yup";
 import {Box, Button, Modal, TextField} from "@mui/material";
 import './FormInput.scss'
-import {updateProfileAction} from "../../store/auth/authActions";
+import {updateProfile} from "../../store/auth/authSlice";
 
 const FormInput = ({profile, setIsChanging}) => {
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const FormInput = ({profile, setIsChanging}) => {
                 maLoaiNguoiDung: profile.maLoaiNguoiDung
             }
             // console.log(updatedUser);
-            dispatch(updateProfileAction(updatedUser))
+            dispatch(updateProfile(updatedUser))
         },
         validationSchema: schema,
         validateOnChange: false,
