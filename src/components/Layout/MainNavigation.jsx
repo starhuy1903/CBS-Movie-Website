@@ -22,8 +22,6 @@ const MainNavigation = () => {
         navigate("/");
     }
 
-    console.log(location)
-
     return (
         <Header>
             <Wrapper>
