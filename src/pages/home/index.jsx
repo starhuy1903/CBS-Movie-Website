@@ -40,7 +40,7 @@ const Home = () => {
         if(!movies || Number(currentPage) !== movies.currentPage) {
             dispatch(fetchMoviesList(currentPage));
         }
-    }, [dispatch])
+    }, [dispatch, currentPage, movies])
 
     let content;
 

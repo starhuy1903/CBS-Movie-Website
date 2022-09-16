@@ -21,6 +21,7 @@ export const Left = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 2rem 0;
   min-height: 100%;
 `

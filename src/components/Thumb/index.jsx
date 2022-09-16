@@ -1,14 +1,16 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import './thumb.scss'
+import {Container} from "./Thumb.styles";
 
 const Thumb = ({image, movieId}) => {
     return (
-        <div className="thumb">
+        <Container>
             <Link to={`/detail/${movieId}`}>
                 <img src={image} alt="movie thumb"/>
             </Link>
-        </div>
+        </Container>
+
+
     );
 };
 

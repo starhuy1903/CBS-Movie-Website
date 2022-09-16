@@ -1,26 +1,15 @@
 import React, {useState} from 'react';
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import logo from '../../assets/images/react-movie-logo.svg'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Header, Logo, Navbar, Profile, Wrapper} from "./MainNavigation.styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {authActions} from "../../store/auth/authSlice";
 
 const MainNavigation = () => {
     const profile = useSelector(state => state.auth.profile)
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [isNavExpanded, setIsNavExpanded] = useState(false)
     const location = useLocation();
-
-    const handleLogout = (event) => {
-        event.preventDefault();
-
-        localStorage.removeItem('token');
-        dispatch(authActions.setProfile(null));
-        navigate("/");
-    }
 
     return (
         <Header>

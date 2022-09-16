@@ -56,13 +56,13 @@ const Login = () => {
         }, [navigate, authStatus])
 
         useEffect(() => {
-            if(authStatus === 'failed' && Object.values(formik.touched).some(item => item)) {
+            if (authStatus === 'failed' && Object.values(formik.touched).some(item => item)) {
                 dispatch(authActions.setStatus('idle'))
                 dispatch(authActions.resetError)
             }
 
             return () => {
-                if(authStatus === 'failed') {
+                if (authStatus === 'failed') {
                     dispatch(authActions.setStatus('idle'))
                     dispatch(authActions.resetError)
                 }

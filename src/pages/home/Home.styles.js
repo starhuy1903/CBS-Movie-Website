@@ -4,6 +4,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 2rem;
+  min-height: inherit;
+  justify-content: center;
   
   .pagination {
     align-self: center;

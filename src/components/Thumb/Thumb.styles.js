@@ -1,4 +1,6 @@
-.thumb {
+import styled from "styled-components";
+
+export const Container = styled.div`
   background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   transition: all .3s;
   border-radius: 20px;
@@ -15,8 +17,12 @@
     transition: all .2s;
     height: 100%;
 
-    &:hover {
-      transform: scale(0.98);
+    @media screen and (max-width: 576px) {
+
     }
   }
-}
+
+  &:hover {
+    transform: scale(0.96);
+  }
+`

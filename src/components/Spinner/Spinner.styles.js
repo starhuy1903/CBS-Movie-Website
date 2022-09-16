@@ -4,7 +4,7 @@ export const Container = styled.div`
  display: flex;
  justify-content: center;
  align-items: center;
- min-height: 90vh;
+ width: 100%;
 `
 
 export const LoaderWrapper = styled.div`

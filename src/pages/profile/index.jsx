@@ -1,68 +1,77 @@
-import React, {useState} from 'react';
-import {useSelector} from "react-redux";
-import {Button, TextField} from "@mui/material";
-import FormInput from "../../components/FormInput";
-import './profile.scss'
+import React from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {Button, Buttons, Container, Image, Info, Item, Left, Right, Title} from "./Profile.styles";
+import avatar from "../../assets/images/avatar.png"
+import {authActions, selectProfile} from "../../store/auth/authSlice";
+import Spinner from "../../components/Spinner";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
-    const profile = useSelector(state => state.auth.profile)
-    const [isChanging, setIsChanging] = useState(false);
+    const profile = useSelector(selectProfile)
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    if (!profile) {
-        return <h1>Loading....</h1>
+    const handleLogout = (event) => {
+        event.preventDefault();
+
+        localStorage.removeItem('token');
+        dispatch(authActions.setProfile(null));
+        dispatch(authActions.setStatus('idle'))
+        navigate("/");
     }
 
-    const {
-        taiKhoan,
-        hoTen,
-        email,
-        soDT,
-    } = profile;
+    let content;
+    if (!profile) {
+        content = <Spinner />
+    } else {
+        const {
+            taiKhoan,
+            hoTen,
+            email,
+            soDT,
+        } = profile;
+        content = (<>
+            <Left>
+                <Image src={avatar}/>
+                <h1>{hoTen}</h1>
+
+                <Buttons>
+                    <Button className="leftBtn">
+                        Change
+                    </Button>
+                    <Button className="rightBtn" onClick={handleLogout}>
+                        Logout
+                    </Button>
+                </Buttons>
+            </Left>
+            <Right>
+                <Title>Information</Title>
+                <Info>
+                    <Item>
+                        <span>Username</span>
+                        <p>{taiKhoan}</p>
+                    </Item>
+                    <Item>
+                        <span>Email</span>
+                        <p>{email}</p>
+                    </Item>
+                    <Item>
+                        <span>Phone</span>
+                        <p>{soDT}</p>
+                    </Item>
+                    <Item>
+                        <span>Full name</span>
+                        <p>{hoTen}</p>
+                    </Item>
+                </Info>
+            </Right>
+        </>)
+    }
 
     return (
-        <div className="profile">
-            <h1 className="title">Profile</h1>
-            <div className="info">
-                <TextField
-                    disabled
-                    name="taiKhoan"
-                    id="taiKhoan"
-                    label="Account"
-                    value={taiKhoan}
-                    className="inputControl"
-                />
-                <TextField
-                    disabled
-                    name="email"
-                    label="Email"
-                    value={email}
-                    className="inputControl"
-                />
-                <TextField
-                    disabled
-                    name="soDT"
-                    label="Phone"
-                    value={soDT}
-                    className="inputControl"
-                />
-                <TextField
-                    disabled
-                    name="hoTen"
-                    label="Full Name"
-                    value={hoTen}
-                    className="inputControl"
-                />
-            </div>
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={() => setIsChanging(true)}
-                className="actionBtn"
-            >
-                Change
-            </Button>
-            {isChanging && <FormInput profile={profile} setIsChanging={setIsChanging} />}
-        </div>
+        <Container>
+            {content}
+        </Container>
     )
 };
 

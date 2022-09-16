@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import * as yup from 'yup'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {authActions, getAuthError, getAuthStatus, signUp} from "../../store/auth/authSlice";
+import {authActions, getAuthError, getAuthStatus, selectProfile, signUp} from "../../store/auth/authSlice";
 import Spinner from "../../components/Spinner";
 import {
     Bottom,
@@ -39,6 +39,7 @@ const SignUp = () => {
     const error = useSelector(getAuthError)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const profile = useSelector(selectProfile)
 
     const formik = useFormik({
         initialValues: {
@@ -59,10 +60,12 @@ const SignUp = () => {
     })
 
     useEffect(() => {
-        if (authStatus === 'succeeded') {
+        if (authStatus === 'succeeded' && !profile) {
             navigate("/login");
+        } else if(profile) {
+            navigate("/")
         }
-    }, [navigate, authStatus])
+    }, [navigate, authStatus, profile])
 
     useEffect(() => {
         if(authStatus === 'failed' && Object.values(formik.touched).some(item => item)) {
