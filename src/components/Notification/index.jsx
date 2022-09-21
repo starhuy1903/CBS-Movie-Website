@@ -16,7 +16,7 @@ const Notification = () => {
     useEffect(() => {
         if(noti.msg)
             setOpen(true)
-    }, [noti])
+    }, [noti.msg])
 
     if(!noti?.msg)
         return null;
