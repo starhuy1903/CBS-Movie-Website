@@ -39,7 +39,7 @@ const FormInput = ({open, setOpen, profile}) => {
         validateOnBlur: true
     })
 
-    console.log('render')
+    // console.log('render')
 
     return (
         <Modal
