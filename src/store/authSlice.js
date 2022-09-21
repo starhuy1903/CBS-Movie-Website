@@ -50,15 +50,16 @@ export const fetchProfile = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
     "auth/updateProfile",
-    async (updatedUser) => {
-
-        const res = await api.request({
-            url: "/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
-            method: "PUT",
-            data: updatedUser,
-        })
-
-        return res.data.content;
+    async (updatedUser, {rejectWithValue}) => {
+        try {
+            await api.request({
+                url: "/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+                method: "PUT",
+                data: updatedUser,
+            })
+        } catch (err) {
+            return rejectWithValue(err.response.data.content)
+        }
     })
 
 const initialState = {
@@ -118,11 +119,10 @@ const authSlice = createSlice({
             })
             .addCase(updateProfile.fulfilled, (state, action) => {
                 state.status = HTTP_STATUS.FULFILLED;
-                state.data = action.payload;
             })
             .addCase(updateProfile.rejected, (state, action) => {
                 state.status = HTTP_STATUS.REJECTED
-                state.error = action.payload.content;
+                state.error = action.payload;
             })
 
 
