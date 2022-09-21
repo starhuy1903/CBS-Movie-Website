@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner";
 import {Container} from "./Home.styles";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import {fetchBannerList, getBannerError, getBannerLoading} from "../../store/bannerSlice";
+import {notificationActions} from "../../store/notificationSlice";
 
 
 const Home = () => {
@@ -22,7 +23,10 @@ const Home = () => {
     if (bannerLoading === HTTP_STATUS.PENDING) {
         content = <Spinner/>;
     } else if (bannerLoading === HTTP_STATUS.REJECTED) {
-        content = <p>{bannerError}</p>
+        dispatch(notificationActions.createAlert({
+            msg: bannerError,
+            type: "error"
+        }))
     } else if (bannerLoading === HTTP_STATUS.FULFILLED) {
         content = (
             <>

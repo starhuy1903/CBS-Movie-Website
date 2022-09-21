@@ -12,6 +12,7 @@ import {
 } from "../../store/selectedMovieSlice";
 
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
+import {notificationActions} from "../../store/notificationSlice";
 
 const MovieDetail = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,10 @@ const MovieDetail = () => {
     if (loading === HTTP_STATUS.PENDING) {
         content = <Spinner/>
     } else if (loading === HTTP_STATUS.REJECTED) {
-        // content = <ErrorAction>{error}</ErrorAction>
+        dispatch(notificationActions.createAlert({
+            msg: error,
+            type: "error"
+        }))
     } else if (loading === HTTP_STATUS.FULFILLED) {
         content = (
             <>

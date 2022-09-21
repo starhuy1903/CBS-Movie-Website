@@ -30,7 +30,6 @@ const FormInput = ({open, setOpen, profile}) => {
                 maNhom: "GP02",
                 maLoaiNguoiDung: profile.maLoaiNguoiDung
             }
-            console.log(updatedUser);
             dispatch(updateProfile(updatedUser))
             setOpen(false)
         },
@@ -38,8 +37,6 @@ const FormInput = ({open, setOpen, profile}) => {
         validateOnChange: false,
         validateOnBlur: true
     })
-
-    // console.log('render')
 
     return (
         <Modal

@@ -8,6 +8,7 @@ import Spinner from "../Spinner";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import {Pagination} from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
+import {notificationActions} from "../../store/notificationSlice";
 
 const MoviesList = () => {
     const movies = useSelector(selectMovieList);
@@ -32,7 +33,10 @@ const MoviesList = () => {
     if (moviesLoading === HTTP_STATUS.PENDING) {
         content = <Spinner/>
     } else if (moviesLoading === HTTP_STATUS.REJECTED) {
-        content = <h1>{moviesError}</h1>
+        dispatch(notificationActions.createAlert({
+            msg: moviesError,
+            type: "error"
+        }))
     } else if(moviesLoading === HTTP_STATUS.FULFILLED) {
         content = (
             <>

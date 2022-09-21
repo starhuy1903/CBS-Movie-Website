@@ -18,7 +18,6 @@ const Profile = () => {
     const error = useSelector(getAuthError)
 
     const [open, setOpen] = useState(false)
-    // const [updating, setUpdating] = useState(false);
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -45,7 +44,6 @@ const Profile = () => {
         dispatch(authActions.resetError())
     }
 
-    // console.log(profile)
 
     let content;
     if (!profile) {

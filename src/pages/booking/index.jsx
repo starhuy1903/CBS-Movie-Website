@@ -14,6 +14,7 @@ import {
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../../components/Spinner";
 import {bookingActions} from "../../store/bookingSlice";
+import {notificationActions} from "../../store/notificationSlice";
 
 const Booking = () => {
     const {showId} = useParams();
@@ -36,7 +37,10 @@ const Booking = () => {
     if(loading === HTTP_STATUS.PENDING) {
         content = <Spinner />
     } else if(loading === HTTP_STATUS.REJECTED) {
-        content = <p>{error}</p>
+        dispatch(notificationActions.createAlert({
+            msg: error,
+            type: "error"
+        }))
     } else if(loading === HTTP_STATUS.FULFILLED) {
         content = (
             <>

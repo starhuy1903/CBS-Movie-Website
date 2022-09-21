@@ -12,8 +12,6 @@ import {getBanner} from "../../store/bannerSlice";
 const HeroImage = () => {
     const bannerList = useSelector(getBanner)
 
-    // if(!bannerList) return null;
-
     return (
         <Container>
                 <Swiper

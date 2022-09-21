@@ -22,6 +22,7 @@ import {
 } from "../../store/cinemaSystemShowtimeInfoSlice";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../Spinner";
+import {notificationActions} from "../../store/notificationSlice";
 
 const ShowTime = () => {
     const dispatch = useDispatch();
@@ -52,7 +53,10 @@ const ShowTime = () => {
     if (loading === HTTP_STATUS.PENDING) {
         content = <Spinner/>
     } else if (loading === HTTP_STATUS.REJECTED) {
-        content = <p>{error}</p>
+        dispatch(notificationActions.createAlert({
+            msg: error,
+            type: "error"
+        }))
     } else if (loading === HTTP_STATUS.FULFILLED) {
         content = cinemaSystemShowtimeInfo.lstCumRap.map(cluster => {
                 const currentMovie = cluster.danhSachPhim.find(movie => movie.maPhim === selectedMovie.maPhim)
