@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import Spinner from "../Spinner";
 import {Container, Content, Description, Image, ImageWrapper, Title} from "./MovieInfo.styles";
-import {getSelectedMovie} from "../../store/selectedMovie/selectedMovieSlice";
+import {getSelectedMovie} from "../../store/selectedMovieSlice";
 import {useModal} from "../../hooks/useModal";
 
 import VideoModal from "../VideoModal";

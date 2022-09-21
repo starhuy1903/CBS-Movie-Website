@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import * as yup from "yup";
 import {Box, Button, Modal, TextField} from "@mui/material";
 import './FormInput.scss'
-import {updateProfile} from "../../store/auth/authSlice";
+import {updateProfile} from "../../store/authSlice";
 
 const FormInput = ({open, setOpen, profile}) => {
     const dispatch = useDispatch();

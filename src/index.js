@@ -4,8 +4,8 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import store from "./store";
 import {Provider} from "react-redux";
-import {fetchProfile} from "./store/auth/authSlice";
-import {fetchCinemaSystemInfo} from "./store/cinemaSystemInfo/cinemaSystemInfoSlice";
+import {fetchProfile} from "./store/authSlice";
+import {fetchCinemaSystemInfo} from "./store/cinemaSystemInfoSlice";
 
 if (localStorage.getItem('token')) {
     store.dispatch(fetchProfile())

@@ -4,13 +4,12 @@ import ShowTime from "../../components/ShowTime";
 import {Container} from "./MovieDetail.styles";
 import {useDispatch, useSelector} from "react-redux";
 import Spinner from "../../components/Spinner";
-import {ErrorAction} from "../login/Login.styles";
 import {useParams} from "react-router-dom";
 import {
     fetchMovieDetail,
     getSelectedMovieError,
     getSelectedMovieLoading
-} from "../../store/selectedMovie/selectedMovieSlice";
+} from "../../store/selectedMovieSlice";
 
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 
@@ -28,7 +27,7 @@ const MovieDetail = () => {
     if (loading === HTTP_STATUS.PENDING) {
         content = <Spinner/>
     } else if (loading === HTTP_STATUS.REJECTED) {
-        content = <ErrorAction>{error}</ErrorAction>
+        // content = <ErrorAction>{error}</ErrorAction>
     } else if (loading === HTTP_STATUS.FULFILLED) {
         content = (
             <>

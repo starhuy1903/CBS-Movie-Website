@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container, Row, Seat, Table, TableBody} from "./CinemaSeat.styles";
 import {useDispatch, useSelector} from "react-redux";
-import {bookingActions, getSelectedSeats} from "../../store/booking/bookingSlice";
+import {bookingActions, getSelectedSeats} from "../../store/bookingSlice";
 
 const CinemaSeat = ({seatList}) => {
     const SEAT_PER_ROW = 16;

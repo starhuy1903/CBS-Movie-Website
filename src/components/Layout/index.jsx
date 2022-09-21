@@ -3,6 +3,7 @@ import MainNavigation from "./MainNavigation";
 import Footer from "./Footer";
 import {Outlet, useLocation} from "react-router-dom";
 import {GlobalStyle} from "../../GlobalStyle";
+import Notification from "../Notification";
 
 const Layout = () => {
     const location = useLocation();
@@ -19,6 +20,7 @@ const Layout = () => {
             </main>
             <Footer />
             <GlobalStyle/>
+            <Notification />
         </>
     );
 };

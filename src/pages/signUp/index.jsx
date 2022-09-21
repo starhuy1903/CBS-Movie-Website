@@ -3,12 +3,12 @@ import {useFormik} from "formik";
 import * as yup from 'yup'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {authActions, getAuthError, getAuthStatus, selectProfile, signUp} from "../../store/auth/authSlice";
+import {authActions, getAuthError, getAuthStatus, selectProfile, signUp} from "../../store/authSlice";
 import Spinner from "../../components/Spinner";
 import {
     Bottom,
     Button,
-    Container, ErrorAction,
+    Container,
     ErrorText,
     Form,
     IconContainer,
@@ -25,6 +25,8 @@ import HttpsIcon from "@mui/icons-material/Https";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import PersonIcon from '@mui/icons-material/Person';
+import {HTTP_STATUS} from "../../api/httpStatusConstants";
+import {notificationActions} from "../../store/notificationSlice";
 
 const schema = yup.object().shape({
     taiKhoan: yup.string().required("This field is required"),
@@ -35,7 +37,7 @@ const schema = yup.object().shape({
 })
 
 const SignUp = () => {
-    const authStatus = useSelector(getAuthStatus)
+    const status = useSelector(getAuthStatus)
     const error = useSelector(getAuthError)
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -60,31 +62,29 @@ const SignUp = () => {
     })
 
     useEffect(() => {
-        if (authStatus === 'succeeded' && !profile) {
+        if (status === HTTP_STATUS.FULFILLED && !profile) {
+            dispatch(authActions.resetStatus())
+            dispatch(notificationActions.createAlert({
+                msg: 'Sign up successful',
+                type: "success"
+            }))
             navigate("/login");
-        } else if(profile) {
+        } else if (status === HTTP_STATUS.REJECTED) {
+            dispatch(notificationActions.createAlert({
+                msg: error,
+                type: "error"
+            }))
+            dispatch(authActions.resetStatus())
+            dispatch(authActions.resetError())
+        } else if (profile) {
             navigate("/")
         }
-    }, [navigate, authStatus, profile])
-
-    useEffect(() => {
-        if(authStatus === 'failed' && Object.values(formik.touched).some(item => item)) {
-            dispatch(authActions.setStatus('idle'))
-            dispatch(authActions.resetError)
-        }
-
-        return () => {
-            if(authStatus === 'failed') {
-                dispatch(authActions.setStatus('idle'))
-                dispatch(authActions.resetError)
-            }
-        }
-    }, [dispatch, authStatus, formik.touched])
+    }, [dispatch, navigate, status, profile, error])
 
     return (
         <Container>
             <Left>
-                {authStatus === 'loading' ? (
+                {status === HTTP_STATUS.PENDING ? (
                     <Spinner/>
                 ) : (<>
                     <Logo src={movieLogo}/>
@@ -167,7 +167,6 @@ const SignUp = () => {
                         <Button>
                             Sign up
                         </Button>
-                        {authStatus === 'failed' && <ErrorAction>{error}</ErrorAction>}
                     </Form>
 
                     <Bottom>

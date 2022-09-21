@@ -7,7 +7,7 @@ import {Banner, Container} from "./HeroImage.styles";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import {useSelector} from "react-redux";
-import {getBanner} from "../../store/banner/bannerSlice";
+import {getBanner} from "../../store/bannerSlice";
 
 const HeroImage = () => {
     const bannerList = useSelector(getBanner)

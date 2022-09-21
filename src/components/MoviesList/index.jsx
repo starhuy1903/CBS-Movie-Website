@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Grid from "../Grid";
 import Thumb from "../Thumb";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchMoviesList, getMoviesError, getMoviesLoading, selectMovieList} from "../../store/movies/moviesSlice";
+import {fetchMoviesList, getMoviesError, getMoviesLoading, selectMovieList} from "../../store/moviesSlice";
 import {Container} from "./MoviesList.styles";
 import Spinner from "../Spinner";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";

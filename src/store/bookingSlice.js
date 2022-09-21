@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import api from "../../api/api";
-import {HTTP_STATUS} from "../../api/httpStatusConstants";
+import api from "../api/api";
+import {HTTP_STATUS} from "../api/httpStatusConstants";
 
 export const bookCinemaTicket = createAsyncThunk(
     "booking/bookCinemaTicket", async (cinemaTickets, {rejectWithValue}) => {

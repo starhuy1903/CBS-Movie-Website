@@ -14,9 +14,9 @@ import {
     Title
 } from "./TicketInfo.styles";
 import Barcode from "../Barcode";
-import {selectCinemaTicket} from "../../store/cinemaTicket/cinemaTicketSlice";
-import {selectProfile} from "../../store/auth/authSlice";
-import {getSelectedSeats} from "../../store/booking/bookingSlice";
+import {selectCinemaTicket} from "../../store/cinemaTicketSlice";
+import {selectProfile} from "../../store/authSlice";
+import {getSelectedSeats} from "../../store/bookingSlice";
 
 const TicketInfo = () => {
     const selectedSeats = useSelector(getSelectedSeats)

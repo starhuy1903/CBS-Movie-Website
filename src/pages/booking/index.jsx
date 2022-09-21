@@ -10,10 +10,10 @@ import {
     getCinemaTicketError,
     getCinemaTicketStatus,
     selectCinemaTicket
-} from "../../store/cinemaTicket/cinemaTicketSlice";
+} from "../../store/cinemaTicketSlice";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../../components/Spinner";
-import {bookingActions} from "../../store/booking/bookingSlice";
+import {bookingActions} from "../../store/bookingSlice";
 
 const Booking = () => {
     const {showId} = useParams();

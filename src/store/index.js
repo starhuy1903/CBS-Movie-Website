@@ -1,12 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
-import bookingReducer from "./booking/bookingSlice";
-import authReducer from "./auth/authSlice";
-import moviesReducer from "./movies/moviesSlice";
-import selectedMovieReducer from './selectedMovie/selectedMovieSlice'
-import bannerReducer from './banner/bannerSlice'
-import cinemaSystemInfoReducer from './cinemaSystemInfo/cinemaSystemInfoSlice'
-import cinemaSystemShowtimeInfoReducer from './cinemaSystemShowtimeInfo/cinemaSystemShowtimeInfoSlice'
-import cinemaTicketReducer from './cinemaTicket/cinemaTicketSlice'
+import bookingReducer from "./bookingSlice";
+import authReducer from "./authSlice";
+import moviesReducer from "./moviesSlice";
+import selectedMovieReducer from './selectedMovieSlice'
+import bannerReducer from './bannerSlice'
+import cinemaSystemInfoReducer from './cinemaSystemInfoSlice'
+import cinemaSystemShowtimeInfoReducer from './cinemaSystemShowtimeInfoSlice'
+import cinemaTicketReducer from './cinemaTicketSlice'
+import notificationReducer from './notificationSlice'
 
 const store = configureStore({
     reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
         banner: bannerReducer,
         cinemaSystemInfo: cinemaSystemInfoReducer,
         cinemaSystemShowtimeInfo: cinemaSystemShowtimeInfoReducer,
-        cinemaTicket: cinemaTicketReducer
+        cinemaTicket: cinemaTicketReducer,
+        notification: notificationReducer,
     }
 })
 

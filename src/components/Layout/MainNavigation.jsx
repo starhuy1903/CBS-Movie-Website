@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {Header, Logo, Navbar, Profile, Wrapper} from "./MainNavigation.styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {selectProfile} from "../../store/auth/authSlice";
+import {selectProfile} from "../../store/authSlice";
 
 const MainNavigation = () => {
     const profile = useSelector(selectProfile)

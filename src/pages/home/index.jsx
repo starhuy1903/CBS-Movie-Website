@@ -5,7 +5,7 @@ import MoviesList from "../../components/MoviesList";
 import Spinner from "../../components/Spinner";
 import {Container} from "./Home.styles";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
-import {fetchBannerList, getBannerError, getBannerLoading} from "../../store/banner/bannerSlice";
+import {fetchBannerList, getBannerError, getBannerLoading} from "../../store/bannerSlice";
 
 
 const Home = () => {

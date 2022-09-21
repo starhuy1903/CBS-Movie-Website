@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import loginBg from '../../assets/images/login-bg.jpg'
+import {devices} from "../../GlobalStyle";
 
 export const Container = styled.div`
   width: 90%;
@@ -9,7 +10,6 @@ export const Container = styled.div`
   margin: 3rem auto;
   display: flex;
   min-height: 70vh;
-  -webkit-box-shadow: -1px 3px 14px -2px #000000;
   box-shadow: -1px 3px 14px -2px #000000;
   border-radius: 15px;
   overflow: hidden;
@@ -111,10 +111,9 @@ export const Right = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  -webkit-box-shadow: -3px -1px 16px -5px #000000;
   box-shadow: -3px -1px 16px -5px #000000;
 
-  @media screen and (max-width: 768px) {
+  @media${devices.landscapeMobile} {
     display: none;
   }
 `
@@ -179,16 +178,6 @@ export const Bottom = styled.div`
     color: #81d4fa;
     font-weight: bold;
     font-size: 14px;
-  }
-`
-
-export const ErrorAction = styled.p`
-  color: #FF3D00;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  
-  @media screen and (max-width: 576px) {
-    font-size: 1rem;
   }
 `
 

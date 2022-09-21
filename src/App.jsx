@@ -26,7 +26,6 @@ const App = () => {
                     <Route path="signup" element={<SignUp/>}/>
                 </Route>
             </Route>
-
         </Routes>
     );
 }

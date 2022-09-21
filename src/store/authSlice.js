@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import api from "../../api/api";
+import api from "../api/api";
+import {HTTP_STATUS} from "../api/httpStatusConstants";
 
 export const signIn = createAsyncThunk(
     "auth/signIn",
@@ -34,7 +35,7 @@ export const signUp = createAsyncThunk(
         } catch (err) {
             return rejectWithValue(err.response.data.content)
         }
-})
+    })
 
 export const fetchProfile = createAsyncThunk(
     "auth/fetchProfile",
@@ -61,8 +62,8 @@ export const updateProfile = createAsyncThunk(
     })
 
 const initialState = {
-    profile: null,
-    status: 'idle',
+    data: null,
+    status: null,
     error: null,
 }
 
@@ -71,10 +72,13 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setProfile(state, action) {
-            state.profile = action.payload;
+            state.data = action.payload;
         },
         setStatus(state, action) {
-          state.status = action.payload;
+            state.status = action.payload;
+        },
+        resetStatus(state) {
+            state.status = null;
         },
         resetError(state) {
             state.error = null;
@@ -83,49 +87,41 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(signIn.pending, (state) => {
-                state.status = 'loading'
+                state.status = HTTP_STATUS.PENDING
             })
             .addCase(signIn.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.profile = action.payload;
+                state.status = HTTP_STATUS.FULFILLED;
+                state.data = action.payload;
             })
             .addCase(signIn.rejected, (state, action) => {
-                state.status = 'failed'
+                state.status = HTTP_STATUS.REJECTED
                 state.error = action.payload;
             })
 
             .addCase(signUp.pending, (state) => {
-                state.status = 'loading'
+                state.status = HTTP_STATUS.PENDING
             })
-            .addCase(signUp.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+            .addCase(signUp.fulfilled, (state) => {
+                state.status = HTTP_STATUS.FULFILLED;
             })
             .addCase(signUp.rejected, (state, action) => {
-                state.status = 'failed'
+                state.status = HTTP_STATUS.REJECTED
                 state.error = action.payload;
             })
 
-            .addCase(fetchProfile.pending, (state) => {
-                state.status = 'loading'
-            })
             .addCase(fetchProfile.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.profile = action.payload;
-            })
-            .addCase(fetchProfile.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.payload.content;
+                state.data = action.payload;
             })
 
             .addCase(updateProfile.pending, (state) => {
-                state.status = 'loading'
+                state.status = HTTP_STATUS.PENDING
             })
             .addCase(updateProfile.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.profile = action.payload;
+                state.status = HTTP_STATUS.FULFILLED;
+                state.data = action.payload;
             })
             .addCase(updateProfile.rejected, (state, action) => {
-                state.status = 'failed'
+                state.status = HTTP_STATUS.REJECTED
                 state.error = action.payload.content;
             })
 
@@ -133,7 +129,7 @@ const authSlice = createSlice({
     }
 })
 
-export const selectProfile = (state) => state.auth.profile;
+export const selectProfile = (state) => state.auth.data;
 export const getAuthStatus = (state) => state.auth.status;
 export const getAuthError = (state) => state.auth.error;
 

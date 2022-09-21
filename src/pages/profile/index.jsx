@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Buttons, Container, Image, Info, Item, Left, Right, Title} from "./Profile.styles";
 import avatar from "../../assets/images/avatar.png"
-import {authActions, selectProfile} from "../../store/auth/authSlice";
+import {authActions, selectProfile} from "../../store/authSlice";
 import Spinner from "../../components/Spinner";
 import {useNavigate} from "react-router-dom";
 import FormInput from "../../components/FormInput";

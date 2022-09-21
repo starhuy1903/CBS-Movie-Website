@@ -19,8 +19,8 @@ import {
     bookingActions,
     getBookingLoading,
     getSelectedSeats
-} from "../../store/booking/bookingSlice";
-import {fetchCinemaTicket, selectCinemaTicket} from "../../store/cinemaTicket/cinemaTicketSlice";
+} from "../../store/bookingSlice";
+import {fetchCinemaTicket, selectCinemaTicket} from "../../store/cinemaTicketSlice";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../Spinner";
 import AlertDialog from "../AlertDialog";

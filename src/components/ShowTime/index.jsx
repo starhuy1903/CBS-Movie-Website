@@ -14,12 +14,12 @@ import {
     Right,
     ShowTimeWrapper, TimeButton, TimeWrapper, Title
 } from "./ShowTime.styles";
-import {getSelectedMovie} from "../../store/selectedMovie/selectedMovieSlice";
-import {getCinemaSystemInfo} from "../../store/cinemaSystemInfo/cinemaSystemInfoSlice";
+import {getSelectedMovie} from "../../store/selectedMovieSlice";
+import {getCinemaSystemInfo} from "../../store/cinemaSystemInfoSlice";
 import {
     fetchMovieSchedule,
     getCinemaSystemShowtimeInfo, getCinemaSystemShowtimeInfoError, getCinemaSystemShowtimeInfoLoading
-} from "../../store/cinemaSystemShowtimeInfo/cinemaSystemShowtimeInfoSlice";
+} from "../../store/cinemaSystemShowtimeInfoSlice";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../Spinner";
 
