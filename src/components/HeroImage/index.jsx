@@ -7,12 +7,12 @@ import {Banner, Container} from "./HeroImage.styles";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import {useSelector} from "react-redux";
-import {selectBannerList} from "../../store/movies/moviesSlice";
+import {getBanner} from "../../store/banner/bannerSlice";
 
 const HeroImage = () => {
-    const bannerList = useSelector(selectBannerList)
+    const bannerList = useSelector(getBanner)
 
-    if(!bannerList) return null;
+    // if(!bannerList) return null;
 
     return (
         <Container>
@@ -25,7 +25,7 @@ const HeroImage = () => {
                     autoplay={true}
                     loop="true"
                 >
-                    {bannerList.map(banner => (
+                    {bannerList?.map(banner => (
                         <SwiperSlide key={banner.maBanner}>
                             <Banner image={banner.hinhAnh} />
                         </SwiperSlide>

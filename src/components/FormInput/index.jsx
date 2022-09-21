@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import * as yup from "yup";
@@ -6,14 +6,8 @@ import {Box, Button, Modal, TextField} from "@mui/material";
 import './FormInput.scss'
 import {updateProfile} from "../../store/auth/authSlice";
 
-const FormInput = ({profile, setIsChanging}) => {
+const FormInput = ({open, setOpen, profile}) => {
     const dispatch = useDispatch();
-    const [open, setOpen] = useState(true);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {
-        setOpen(false);
-        setIsChanging(false);
-    }
 
     const schema = yup.object().shape({
         taiKhoan: yup.string().required("This field is required"),
@@ -36,8 +30,9 @@ const FormInput = ({profile, setIsChanging}) => {
                 maNhom: "GP02",
                 maLoaiNguoiDung: profile.maLoaiNguoiDung
             }
-            // console.log(updatedUser);
+            console.log(updatedUser);
             dispatch(updateProfile(updatedUser))
+            setOpen(false)
         },
         validationSchema: schema,
         validateOnChange: false,
@@ -49,7 +44,7 @@ const FormInput = ({profile, setIsChanging}) => {
     return (
         <Modal
             open={open}
-            onClose={handleClose}
+            onClose={() => setOpen(false)}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -102,7 +97,7 @@ const FormInput = ({profile, setIsChanging}) => {
                         <Button
                             variant="contained"
                             color="inherit"
-                            onClick={handleClose}
+                            onClick={() => setOpen(false)}
                         >Cancel</Button>
                     </div>
                 </form>

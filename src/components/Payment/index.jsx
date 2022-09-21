@@ -6,8 +6,6 @@ import {
     Content, Message,
     Method,
     MethodContainer,
-    Quantity,
-    TicketAmount,
     Voucher
 } from "./Payment.styles";
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -15,17 +13,28 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import ZaloPayImg from '../../assets/images/zalopay-logo.png'
 import MomoImg from '../../assets/images/momo-logo.png'
 import {useDispatch, useSelector} from "react-redux";
-import {bookCinemaTicket} from "../../store/booking/bookingActions";
-import {useNavigate} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import {
+    bookCinemaTicket,
+    bookingActions,
+    getBookingLoading,
+    getSelectedSeats
+} from "../../store/booking/bookingSlice";
+import {fetchCinemaTicket, selectCinemaTicket} from "../../store/cinemaTicket/cinemaTicketSlice";
+import {HTTP_STATUS} from "../../api/httpStatusConstants";
+import Spinner from "../Spinner";
+import AlertDialog from "../AlertDialog";
 
 
 const Payment = () => {
-    const selectedSeats = useSelector(state => state.booking.selectedSeats)
-    const cinemaTicket = useSelector(state => state.booking.cinemaTicket)
+    const selectedSeats = useSelector(getSelectedSeats)
+    const cinemaTicket = useSelector(selectCinemaTicket)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const {showId} = useParams();
 
-    const amount = selectedSeats.reduce((acc, seat ) => acc + seat.giaVe, 0);
+    const bookingLoading = useSelector(getBookingLoading)
+
+    const amount = selectedSeats.reduce((acc, seat) => acc + seat.giaVe, 0);
     const canPayment = selectedSeats.length !== 0;
 
     const handlePayment = () => {
@@ -37,9 +46,23 @@ const Payment = () => {
             }))
         }
         dispatch(bookCinemaTicket(data))
+    }
 
-        alert('Booking was successful!')
-        navigate('/')
+    const handleFinish = (isContinue) => {
+        dispatch(bookingActions.resetLoading())
+        if(isContinue)
+            dispatch(fetchCinemaTicket(showId))
+    }
+
+    let notiMess;
+    if (bookingLoading === HTTP_STATUS.FULFILLED) {
+        notiMess = (
+            <AlertDialog msg="Booking Ticket successfully!" handleFinish={handleFinish} />
+        )
+    } else if (bookingLoading === HTTP_STATUS.REJECTED) {
+        notiMess = (
+            <AlertDialog msg="Booking Ticket failed :))" handleFinish={handleFinish} />
+        )
     }
 
     return (
@@ -84,18 +107,25 @@ const Payment = () => {
                         </>
                     ) : (
                         <Message>
-                           Please select your seat before
+                            Please select your seat before
                         </Message>
                     )}
                 </MethodContainer>
-                <Button
-                    onClick={handlePayment}
-                    disable={!canPayment}
-                >
-                    <span>Checkout</span>
-                    <Amount>{amount} đ</Amount>
-                </Button>
+
+                {bookingLoading !== HTTP_STATUS.PENDING ? (
+                    <Button
+                        onClick={handlePayment}
+                        disable={!canPayment}
+                    >
+                        <span>Checkout</span>
+                        <Amount>{parseInt(amount).toLocaleString()} đ</Amount>
+                    </Button>
+                ) : (
+                    <Spinner/>
+                )}
+
             </Content>
+            {notiMess}
         </Container>
     );
 };

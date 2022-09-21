@@ -5,9 +5,10 @@ import {useSelector} from "react-redux";
 import {Header, Logo, Navbar, Profile, Wrapper} from "./MainNavigation.styles";
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {selectProfile} from "../../store/auth/authSlice";
 
 const MainNavigation = () => {
-    const profile = useSelector(state => state.auth.profile)
+    const profile = useSelector(selectProfile)
     const [isNavExpanded, setIsNavExpanded] = useState(false)
     const location = useLocation();
 

@@ -7,11 +7,11 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   body {
-    background-color: #212121;;
+    background-color: #212121;
   }
-  
+
   :root {
     --maxWidth: 1280px;
     --white: #eee;
@@ -23,12 +23,12 @@ export const GlobalStyle = createGlobalStyle`
     --fontMed: 1.2rem;
     --fontSmall: 1rem;
     --fontSuperSmall: 0.8rem;
-    
-  //  booking seat color
-    --selectedColor: #FFC107;
-    --soldColor: #03A9F4;
-    --availableColor: #F7F9FD;
-    --vipSeatColor: #FF3D00;
+
+    //  booking seat color
+    --selectedColor: #FFB300;
+    --soldColor: #508cb3;
+    --availableColor: #d2d2d2;
+    --vipSeatColor: #cb1c1c;
   }
 
   h1 {
@@ -51,3 +51,17 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 `
+
+const sizes = {
+    mobile: '575.98px',
+    landscapeMobile: '767.98px',
+    tablet: '991.98px',
+    laptop: '1199.98px',
+}
+
+export const devices = {
+    mobile: `(max-width: ${sizes.mobile})`,
+    landscapeMobile: `(max-width: ${sizes.landscapeMobile})`,
+    tablet: `(max-width: ${sizes.tablet})`,
+    laptop: `(max-width: ${sizes.laptop})`,
+};

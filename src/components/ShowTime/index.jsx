@@ -1,86 +1,114 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCinemaSystemInfoAction, fetchMovieScheduleAction} from "../../store/booking/bookingActions";
 import {formatDate} from "../../utils/date";
-import {Link, useNavigate, useParams} from "react-router-dom";
-import './showTime.scss'
-import TimeButton from "../TimeButton";
+import {useNavigate} from "react-router-dom";
+import {
+    CinemaAddress, CinemaDetail,
+    CinemaImage,
+    CinemaInfo,
+    CinemaName,
+    Container,
+    Left,
+    Logo,
+    LogoWrapper,
+    Right,
+    ShowTimeWrapper, TimeButton, TimeWrapper, Title
+} from "./ShowTime.styles";
+import {getSelectedMovie} from "../../store/selectedMovie/selectedMovieSlice";
+import {getCinemaSystemInfo} from "../../store/cinemaSystemInfo/cinemaSystemInfoSlice";
+import {
+    fetchMovieSchedule,
+    getCinemaSystemShowtimeInfo, getCinemaSystemShowtimeInfoError, getCinemaSystemShowtimeInfoLoading
+} from "../../store/cinemaSystemShowtimeInfo/cinemaSystemShowtimeInfoSlice";
+import {HTTP_STATUS} from "../../api/httpStatusConstants";
+import Spinner from "../Spinner";
 
 const ShowTime = () => {
-    const [selectedCinema, setSelectedCinema] = useState(null);
-    const {movieId} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const cinemaSystemInfo = useSelector(state => state.booking.cinemaSystemInfo)
-    const cinemaSystemShowtimeInfo = useSelector(state => state.booking.cinemaSystemShowtimeInfo)
 
-    const fetchMovieSchedule = (id) => {
-        dispatch(fetchMovieScheduleAction(id))
-    }
+    const selectedMovie = useSelector(getSelectedMovie);
+    const cinemaSystemInfo = useSelector(getCinemaSystemInfo);
+    const [selectedCinemaSysId, setSelectedCinemaSysId] = useState(cinemaSystemInfo[0].maHeThongRap);
 
-    const fetchCinemas = async () => {
-        const data = await dispatch(fetchCinemaSystemInfoAction)
-        fetchMovieSchedule(data[0].maHeThongRap);
-        setSelectedCinema(data[0].maHeThongRap);
-    }
+    const cinemaSystemShowtimeInfo = useSelector(getCinemaSystemShowtimeInfo);
+    const loading = useSelector(getCinemaSystemShowtimeInfoLoading);
+    const error = useSelector(getCinemaSystemShowtimeInfoError)
 
     useEffect(() => {
-        fetchCinemas();
-    }, [])
+        dispatch(fetchMovieSchedule(cinemaSystemInfo[0].maHeThongRap))
+    }, [dispatch, cinemaSystemInfo])
 
     const handleChangeCinema = (cinemaId) => {
-        fetchMovieSchedule(cinemaId);
+        dispatch(fetchMovieSchedule(cinemaId));
+        setSelectedCinemaSysId(cinemaId)
     }
 
     const handleTimeButton = (showId) => {
         navigate(`/booking/${showId}`)
     }
 
+    let content;
+    if (loading === HTTP_STATUS.PENDING) {
+        content = <Spinner/>
+    } else if (loading === HTTP_STATUS.REJECTED) {
+        content = <p>{error}</p>
+    } else if (loading === HTTP_STATUS.FULFILLED) {
+        content = cinemaSystemShowtimeInfo.lstCumRap.map(cluster => {
+                const currentMovie = cluster.danhSachPhim.find(movie => movie.maPhim === selectedMovie.maPhim)
+
+                if (!currentMovie) return null;
+
+                return (
+                    <CinemaInfo key={cluster.maCumRap}>
+                        <CinemaImage src={cluster.hinhAnh} alt="movie-image"/>
+                        <CinemaDetail>
+                            <CinemaName>{cluster.tenCumRap}</CinemaName>
+                            <CinemaAddress>{cluster.diaChi}</CinemaAddress>
+                            <TimeWrapper>
+                                {currentMovie.lstLichChieuTheoPhim.map(showTime => (
+                                    <TimeButton
+                                        key={showTime.maLichChieu}
+                                        onClick={() => handleTimeButton(showTime.maLichChieu)}
+                                    >
+                                        {formatDate(showTime.ngayChieuGioChieu)}
+                                    </TimeButton>
+                                ))}
+                            </TimeWrapper>
+                        </CinemaDetail>
+                    </CinemaInfo>
+                )
+            }
+        )
+
+        if (content.every(item => item === null))
+            content = <p>No showtime</p>
+    }
+
     return (
-        <div className="showTime">
-                <div className="left">
-                    <h3 className="title">Choose a cinema</h3>
+        <Container>
+            <Left>
+                <Title>Choose a cinema</Title>
+                <LogoWrapper>
                     {cinemaSystemInfo?.map(cinemaSystem => (
-                        <img
-                            className="logo"
+                        <Logo
+                            className={cinemaSystem.maHeThongRap === selectedCinemaSysId && 'active'}
                             onClick={() => handleChangeCinema(cinemaSystem.maHeThongRap)}
                             key={cinemaSystem.maHeThongRap}
                             src={cinemaSystem.logo}
                             alt="logo"
                         />
                     ))}
-                </div>
-                <div className="right">
-                    <h3 className="title">Choose Showtime</h3>
-                    {cinemaSystemShowtimeInfo?.lstCumRap.map(cluster => {
-                            const currentMovie = cluster.danhSachPhim.find(movie => movie.maPhim === Number(movieId))
+                </LogoWrapper>
+            </Left>
 
-                            if (!currentMovie) return null;
-
-                            return (
-                                <div key={cluster.maCumRap} className="info">
-                                    <img className="movieImg" src={cluster.hinhAnh} alt=""/>
-                                    <div className="movieInfo">
-                                        <h3 className="cinemaName">{cluster.tenCumRap}</h3>
-                                        <p className="address">{cluster.diaChi}</p>
-                                        <div className="timeContainer">
-                                            {currentMovie.lstLichChieuTheoPhim.map(showTime => (
-                                                <button
-                                                    key={showTime.maLichChieu}
-                                                    className="timeButton"
-                                                    onClick={() => handleTimeButton(showTime.maLichChieu)}
-                                                     >
-                                                    {formatDate(showTime.ngayChieuGioChieu)}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    )}
-                </div>
-        </div>
+            <Right>
+                <Title>Choose Showtime</Title>
+                <ShowTimeWrapper>
+                    {content}
+                </ShowTimeWrapper>
+            </Right>
+        </Container>
     );
 };
 

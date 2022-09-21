@@ -1,72 +1,61 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "../../api/api";
+import {HTTP_STATUS} from "../../api/httpStatusConstants";
 
-export const fetchBannerList = createAsyncThunk("movies/fetchBannerList", async () => {
-    const res = await api.request({
-        url: "/api/QuanLyPhim/LayDanhSachBanner",
-        method: "GET",
-    })
-    return res.data.content;
-})
-
-export const fetchMoviesList = createAsyncThunk("movies/fetchMoviesList", async (currentPage) => {
-    const res = await api.request({
-        url: "/api/QuanLyPhim/LayDanhSachPhimPhanTrang",
-        method: "GET",
-        params: {
-            maNhom: "GP02",
-            soTrang: currentPage,
-            soPhanTuTrenTrang: 10,
+export const fetchMoviesList = createAsyncThunk(
+    "movies/fetchMoviesList", async (currentPage, {rejectWithValue}) => {
+        try {
+            const res = await api.request({
+                url: "/api/QuanLyPhim/LayDanhSachPhimPhanTrang",
+                method: "GET",
+                params: {
+                    maNhom: "GP02",
+                    soTrang: currentPage,
+                    soPhanTuTrenTrang: 10,
+                }
+            })
+            return res.data.content;
+        } catch (err) {
+            return rejectWithValue(err.response.data.content)
         }
-    })
-    return res.data.content;
-})
+    }, {
+        condition: (__, {getState}) => {
+            const {movies} = getState()
+            if (movies.loading === HTTP_STATUS.PENDING)
+                return false;
+
+            return true;
+        }
+    }
+)
 
 const initialState = {
-    bannerList: [],
-    movies: null,
-    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    data: null,
+    loading: null,
     error: null
 }
 
 const moviesSlice = createSlice({
     name: 'movies',
     initialState,
-    reducers: {
-
-    },
     extraReducers(builder) {
         builder
-            .addCase(fetchBannerList.pending, (state, action) => {
-                state.status = 'loading'
-            })
-            .addCase(fetchBannerList.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.bannerList = action.payload;
-            })
-            .addCase(fetchBannerList.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.error.message
-            })
-
-            .addCase(fetchMoviesList.pending, (state, action) => {
-                state.movies = action.payload;
+            .addCase(fetchMoviesList.pending, (state) => {
+                state.loading = HTTP_STATUS.PENDING;
             })
             .addCase(fetchMoviesList.fulfilled, (state, action) => {
-                state.movies = action.payload;
+                state.loading = HTTP_STATUS.FULFILLED;
+                state.data = action.payload;
             })
             .addCase(fetchMoviesList.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.error.message
+                state.loading = HTTP_STATUS.REJECTED;
+                state.error = action.payload;
             })
     }
 })
 
-export const selectBannerList = state => state.movies.bannerList;
-export const selectMovieList = state => state.movies.movies;
-export const getMoviesStatus = (state) => state.movies.status;
+export const selectMovieList = state => state.movies.data;
+export const getMoviesLoading = (state) => state.movies.loading;
 export const getMoviesError = (state) => state.movies.error;
-
-
 
 export default moviesSlice.reducer;

@@ -14,17 +14,16 @@ import {
     Title
 } from "./TicketInfo.styles";
 import Barcode from "../Barcode";
+import {selectCinemaTicket} from "../../store/cinemaTicket/cinemaTicketSlice";
+import {selectProfile} from "../../store/auth/authSlice";
+import {getSelectedSeats} from "../../store/booking/bookingSlice";
 
 const TicketInfo = () => {
-    const selectedSeats = useSelector(state => state.booking.selectedSeats)
-    const cinemaTicket = useSelector(state => state.booking.cinemaTicket)
-    const profile = useSelector(state => state.auth.profile)
+    const selectedSeats = useSelector(getSelectedSeats)
+    const cinemaTicket = useSelector(selectCinemaTicket)
+    const profile = useSelector(selectProfile)
 
-    const movieInfo = cinemaTicket?.thongTinPhim;
-
-    if (!movieInfo) return null;
-
-    // console.log(selectedSeats)
+    const movieInfo = cinemaTicket.thongTinPhim;
 
     return (
         <Container>

@@ -1,15 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Container, Row, Seat, Table, TableBody} from "./CinemaSeat.styles";
 import {useDispatch, useSelector} from "react-redux";
-import {bookingActions} from "../../store/booking/bookingSlice";
+import {bookingActions, getSelectedSeats} from "../../store/booking/bookingSlice";
 
 const CinemaSeat = ({seatList}) => {
     const SEAT_PER_ROW = 16;
     const dispatch = useDispatch()
-    const selectedSeats = useSelector(state => state.booking.selectedSeats)
-
-    if (!seatList)
-        return <p>Loading...</p>
+    const selectedSeats = useSelector(getSelectedSeats)
 
     const handleChooseSeat = (seat) => {
         if(seat.daDat) return;
@@ -22,9 +19,6 @@ const CinemaSeat = ({seatList}) => {
         if(selectedSeats.length === 8) return;
         dispatch(bookingActions.setSelectedSeats([...selectedSeats, seat]))
     }
-
-    // console.log(selectedSeats)
-    // console.log("re-rendered")
 
     const renderSeat = () => {
         const seatRow = [];

@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  background-color: #1976D2;
   color: var(--white);
   padding: 2rem;
-  -webkit-box-shadow: -5px 0px 6px -4px rgba(0,0,0,0.69);
-  box-shadow: -5px 0px 6px -4px rgba(0,0,0,0.69);
 `
 
 export const Header = styled.div`

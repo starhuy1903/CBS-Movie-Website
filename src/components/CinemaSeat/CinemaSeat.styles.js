@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import {devices} from "../../GlobalStyle";
 
 
 export const Container = styled.div`
-
+  margin-top: 2rem;
 `
 
 export const Table = styled.table`
@@ -19,6 +20,11 @@ export const Row = styled.tr`
   justify-content: space-between;
   gap: 5px;
   margin-bottom: 10px;
+
+@media${devices.mobile} {
+  gap: 2px;
+  margin-bottom: 4px;
+}
 `
 
 export const Seat = styled.td`
@@ -34,7 +40,7 @@ export const Seat = styled.td`
   &:hover {
     cursor: pointer;
   }
-  
+
   ${({vip}) => vip && `
     background: var(--vipSeatColor);
   `};
@@ -55,5 +61,5 @@ export const Seat = styled.td`
     width: 20px;
     font-size: 9px;
   }
-  
+
 `

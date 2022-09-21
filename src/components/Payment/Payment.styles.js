@@ -1,13 +1,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  //margin: 2rem auto;
   margin: 0 auto;
   padding: 2rem;
-  -webkit-box-shadow: -6px -4px 6px -4px rgba(0, 0, 0, 0.69);
-  box-shadow: -6px -4px 6px -4px rgba(0, 0, 0, 0.69);
-  //text-align: center;
-
+  color: white;
 `
 
 export const Content = styled.div`
@@ -15,9 +11,6 @@ export const Content = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  //@media screen and (max-width: 1200px) {
-  //}
 `
 
 export const Voucher = styled.div`
@@ -34,7 +27,6 @@ export const Voucher = styled.div`
 
   button {
     border: none;
-    //background-color: transparent;
     background-color: #FFC107;
     border-radius: 5px;
     padding: 0.5rem;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(54,54,55,1) 50%, rgba(33,33,33,1) 94%);
-  -webkit-box-shadow: 0px 1px 11px 2px #000000;
   box-shadow: 0px 1px 11px 2px #000000;
   padding: 0 20px;
   position: sticky;
@@ -63,10 +62,12 @@ export const Navbar = styled.nav`
         font-weight: bold;
         font-size: 1.2rem;
         letter-spacing: 3px;
+        transition: all 0.3s ease-in;
 
         &:hover {
           color: #ffdf47;
           border-color: #ffdf47;
+          transform: scale(1.2);
         }
       }
     }

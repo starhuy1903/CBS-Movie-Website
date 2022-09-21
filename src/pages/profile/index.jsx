@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Buttons, Container, Image, Info, Item, Left, Right, Title} from "./Profile.styles";
 import avatar from "../../assets/images/avatar.png"
 import {authActions, selectProfile} from "../../store/auth/authSlice";
 import Spinner from "../../components/Spinner";
 import {useNavigate} from "react-router-dom";
+import FormInput from "../../components/FormInput";
 
 const Profile = () => {
     const profile = useSelector(selectProfile)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [open, setOpen] = useState(false)
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -36,7 +39,7 @@ const Profile = () => {
                 <h1>{hoTen}</h1>
 
                 <Buttons>
-                    <Button className="leftBtn">
+                    <Button className="leftBtn" onClick={() => setOpen(true)}>
                         Change
                     </Button>
                     <Button className="rightBtn" onClick={handleLogout}>
@@ -71,6 +74,7 @@ const Profile = () => {
     return (
         <Container>
             {content}
+            {open && <FormInput open={open} setOpen={setOpen} profile={profile} />}
         </Container>
     )
 };

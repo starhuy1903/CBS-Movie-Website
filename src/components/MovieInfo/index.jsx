@@ -1,51 +1,48 @@
-import React, {useCallback, useEffect} from 'react';
-import './movieInfo.scss'
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchMovieDetailAction} from "../../store/booking/bookingActions";
+import React from 'react';
+import {useSelector} from "react-redux";
+import Spinner from "../Spinner";
+import {Container, Content, Description, Image, ImageWrapper, Title} from "./MovieInfo.styles";
+import {getSelectedMovie} from "../../store/selectedMovie/selectedMovieSlice";
+import {useModal} from "../../hooks/useModal";
+
+import VideoModal from "../VideoModal";
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+
 
 const MovieInfo = () => {
-    const {movieId} = useParams();
-    const dispatch = useDispatch();
-    const movie = useSelector(state => state.booking.selectedMovie)
+    const movie = useSelector(getSelectedMovie)
+    const { isShowing, toggle } = useModal()
 
-    const fetchMovieDetail = useCallback(() => {
-        dispatch(fetchMovieDetailAction(movieId))
-    }, [dispatch])
-
-    useEffect(() => {
-        fetchMovieDetail();
-    }, [])
-
+    let content;
     if(!movie) {
-        return <p>Loading...</p>
+        content = <Spinner/>;
+    } else {
+        content = (
+            <Content>
+                <ImageWrapper>
+                    <Image src={movie.hinhAnh} alt="poster"/>
+                    <PlayCircleOutlineIcon className="playIcon" onClick={toggle} />
+
+                    <VideoModal isShowing={isShowing} hide={toggle} videoSrc={movie.trailer} />
+                </ImageWrapper>
+
+                <Description>
+                    <Title>{movie.tenPhim}</Title>
+                    <h3>PLOT</h3>
+                    <p>{movie.moTa}</p>
+
+                    {movie.hot && <div className="sticker">Hot</div>}
+                </Description>
+            </Content>
+        )
     }
 
     return (
-        <div className="movieInfo">
-            <div className="wrapper">
-                <div className="content">
-                    <iframe
-                        className="video"
-                        width="720"
-                        src={movie.trailer}
-                        title="Tuesday Mood - Spotify chill playlist ♫ Acoustic Love Songs 2022🍃Chill Music cover of popular songs"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen>
-                    </iframe>
-
-                    <div className="description">
-                        <h1 className="title">{movie.tenPhim}</h1>
-                        <h3>PLOT</h3>
-                        <p>{movie.moTa}</p>
-
-                        {movie.hot && <div className="sticker">Hot</div>}
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+        <Container>
+            {content}
+        </Container>
+    )
+        ;
 };
 
 export default MovieInfo;
