@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {mobile} from "../../responsive";
 
 
 export const Container = styled.footer`
@@ -11,9 +12,10 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: flex-start;
   
-  @media screen and (max-width: 576px) {
-    flex-wrap: wrap;
-  }
+  ${mobile({
+    flexDirection: 'column',
+    alignItems: 'center',
+  })}
 `
 
 export const CompanyData = styled.div`

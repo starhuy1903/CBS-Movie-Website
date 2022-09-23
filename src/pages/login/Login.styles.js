@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import loginBg from '../../assets/images/login-bg.jpg'
-import {devices} from "../../GlobalStyle";
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
   width: 90%;
@@ -13,6 +13,11 @@ export const Container = styled.div`
   box-shadow: -1px 3px 14px -2px #000000;
   border-radius: 15px;
   overflow: hidden;
+  
+  ${mobile({
+    width: "100%",
+    margin: 0
+  })}
 `
 
 export const Left = styled.div`
@@ -24,6 +29,10 @@ export const Left = styled.div`
   justify-content: center;
   padding: 2rem 0;
   min-height: 100%;
+
+  ${mobile({
+    padding: "1rem 0"
+  })}
 `
 
 export const Logo = styled.img`
@@ -32,6 +41,10 @@ export const Logo = styled.img`
   margin-left: 1.5rem;
   display: block;
   align-self: flex-start;
+
+  ${mobile({
+    display: 'none'
+  })}
 `
 
 export const Title = styled.h1`
@@ -66,6 +79,9 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  ${mobile({
+    marginTop: '0.5rem'
+  })}
 
   .form-control {
     margin-top: 1rem;
@@ -112,10 +128,9 @@ export const Right = styled.div`
   background-size: cover;
   background-position: center;
   box-shadow: -3px -1px 16px -5px #000000;
-
-  @media${devices.landscapeMobile} {
-    display: none;
-  }
+  ${bigMobile({
+    display: 'none'
+  })} 
 `
 
 export const Feature = styled.div`

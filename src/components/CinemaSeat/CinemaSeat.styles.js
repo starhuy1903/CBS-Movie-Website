@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import {devices} from "../../GlobalStyle";
-
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  ${mobile({
+    marginTop: '1rem',
+  })}
 `
 
 export const Table = styled.table`
@@ -20,11 +22,10 @@ export const Row = styled.tr`
   justify-content: space-between;
   gap: 5px;
   margin-bottom: 10px;
-
-@media${devices.mobile} {
-  gap: 2px;
-  margin-bottom: 4px;
-}
+  ${mobile({
+    gap: '2px',
+    marginBottom: '4px'
+  })}
 `
 
 export const Seat = styled.td`
@@ -56,10 +57,10 @@ export const Seat = styled.td`
     }
   `};
 
-  @media screen and (max-width: 720px) {
-    height: 20px;
-    width: 20px;
-    font-size: 9px;
-  }
+  ${bigMobile({
+    height: '20px',
+    width: '20px',
+    fontSize: '9px'
+  })}
 
 `

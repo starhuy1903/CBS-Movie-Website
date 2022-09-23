@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {devices} from "../../GlobalStyle";
+import {bigMobile, tablet} from "../../responsive";
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -21,20 +21,19 @@ export const ModalWrapper = styled.div`
   right: 10vh;
   display: flex;
   z-index: 20;
-
-@media${devices.landscapeMobile}{
-  left: 0;
-  right: 0;
-  top: 30vh;
-  bottom: 30vh;
-}
-
-@media${devices.tablet}{
-  left: 5vh;
-  right: 5vh;
-  top: 20vh;
-  bottom: 20vh;
-}
+  ${tablet({
+    left: '5vh',
+    right: '5vh',
+    top: '20vh',
+    bottom: '20vh'
+  })}
+  ${bigMobile({
+    left: 0,
+    right: 0,
+    top: '30vh',
+    bottom: '30vh'
+  })}
+  
 `
 
 export const ModalHeader = styled.div`
@@ -43,7 +42,7 @@ export const ModalHeader = styled.div`
   right: 20px;
   padding: 1.5rem;
   z-index: 1;
-  
+
   .closeIcon {
     height: 50px;
     width: 50px;
@@ -52,19 +51,17 @@ export const ModalHeader = styled.div`
     cursor: pointer;
     color: white;
 
-  @media${devices.landscapeMobile}{
-    margin: 10rem -1rem -1rem auto;
-  }
-
-  @media${devices.tablet}{
-    margin: 4rem -1rem -1rem auto;
-  }
-    
+    ${tablet({
+      margin: '4rem -1rem -1rem auto'
+    })}
+    ${bigMobile({
+      margin: '10rem -1rem -1rem auto'
+    })}
   }
 `
 
 export const Modal = styled.div`
-  background: ${({ theme }) => theme.primary};
+  background: ${({theme}) => theme.primary};
   position: relative;
   border-radius: 3px;
   display: flex;
@@ -83,8 +80,4 @@ export const PlayerSizer = styled.div`
   height: 100%;
   padding-right: 82%;
   margin: 0 auto;
-  
-  @media${devices.landscapeMobile}{
-  
-}
 `

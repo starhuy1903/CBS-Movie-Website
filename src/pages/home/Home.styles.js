@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 2rem;
-  min-height: fit-content;
+  min-height: 100vh;
   justify-content: center;
   
   .pagination {

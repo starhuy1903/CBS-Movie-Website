@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {bigMobile, mobile} from "../../responsive";
 
 export const Header = styled.header`
   background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(54,54,55,1) 50%, rgba(33,33,33,1) 94%);
@@ -19,30 +20,22 @@ export const Wrapper = styled.div`
 
   .menuIcon {
     display: none;
-  }
-
-  @media screen and (max-width: 768px) {
-
-    .menuIcon {
-      display: block;
-      color: white;
-      height: 30px;
-      width: 30px;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
+    color: white;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    ${bigMobile({
+      display: "block",
+    })}
   }
 `
 
 export const Logo = styled.div`
   img {
     width: 200px;
-
-    @media screen and (max-width: 576px) {
-      width: 120px;
-    }
+    ${mobile({
+      width: '120px'
+    })}
   }
 `
 
@@ -225,7 +218,6 @@ export const Profile = styled.div`
     padding: 0.75rem 1.5rem;
     border: 0;
     background-color: #212121;
-    //font-family: "Roboto", Arial, "Segoe UI", sans-serif;
     font-size: 18px;
     font-weight: 400;
     color: #fff;

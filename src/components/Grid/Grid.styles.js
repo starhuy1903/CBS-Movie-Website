@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
   margin-top: 20px;
@@ -15,9 +15,10 @@ export const Wrapper = styled.div`
 export const Title = styled.h1`
   color: white;
 
-  @media screen and (max-width: 768px) {
-    font-size: var(--fontBig);
-  }
+  ${bigMobile({
+    fontSize: `var(--fontBig)`
+  })}
+  
 `
 
 export const Content = styled.div`
@@ -26,8 +27,10 @@ export const Content = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-auto-rows: minmax(100px, 1fr);
   grid-gap: 2rem;
-  
-  @media screen and (max-width: 576px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  ${bigMobile({
+    gridTemplateColumns: `repeat(3, 1fr)`
+  })}
+  ${mobile({
+    gridTemplateColumns: `repeat(2, 1fr)`
+  })} 
 `

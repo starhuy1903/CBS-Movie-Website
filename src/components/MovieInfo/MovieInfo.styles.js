@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {devices} from "../../GlobalStyle";
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
   padding: 40px 20px;
@@ -9,10 +9,11 @@ export const Content = styled.div`
   display: flex;
   margin: 0 auto;
   border-radius: 20px;
+  
+  ${mobile({
+    flexDirection: 'column'
+  })}
 
-@media${devices.mobile} {
-  flex-direction: column;
-}
 `
 
 export const ImageWrapper = styled.div`
@@ -22,7 +23,10 @@ export const ImageWrapper = styled.div`
   position: relative;
   padding: 0 1rem;
   flex: 1;
-
+  ${mobile({
+    marginBottom: '1rem'
+  })}
+  
   .playIcon {
     position: absolute;
     left: 0;
@@ -44,10 +48,6 @@ export const ImageWrapper = styled.div`
   &:hover .playIcon {
     display: block;
   }
-
-@media${devices.mobile} {
-  margin-bottom: 1rem;
-}
 `
 
 export const Image = styled.img`
@@ -58,18 +58,17 @@ export const Image = styled.img`
   box-shadow: 5px 5px 14px 5px rgba(0, 0, 0, 0.72);
   max-height: 350px;
   transition: all 0.3s ease;
+  ${bigMobile({
+    maxHeight: '300px'
+  })}
+  ${mobile({
+    maxHeight: '250px',
+    width: 'auto'
+  })}
 
   &:hover {
     opacity: 0.8;
   }
-
-
-@media${devices.landscapeMobile} {
-  max-height: 300px;
-} @media${devices.mobile} {
-  max-height: 250px;
-  width: auto;
-}
 `
 
 export const Description = styled.div`
@@ -82,11 +81,23 @@ export const Description = styled.div`
 
   h3 {
     margin-bottom: 10px;
+    ${bigMobile({
+      fontSize: '0.85rem'
+    })}
+    ${mobile({
+      fontSize: '0.8rem'
+    })}
   }
 
   p {
     color: lightgray;
     font-weight: 400;
+    ${bigMobile({
+      fontSize: '0.75rem'
+    })}
+    ${mobile({
+      fontSize: '0.7rem'
+    })}
   }
 
   .sticker {
@@ -100,33 +111,15 @@ export const Description = styled.div`
     border-radius: 5px;
     transform: rotate(20deg);
   }
-
-@media${devices.mobile} {
-  h3 {
-    font-size: 0.8rem;
-  }
-
-  p {
-    font-size: 0.7rem;
-  }
-} @media${devices.landscapeMobile} {
-  h3 {
-    font-size: 0.85rem;
-  }
-
-  p {
-    font-size: 0.75rem;
-  }
-}
 `
 
 export const Title = styled.h1`
   font-weight: 700;
   margin-bottom: 20px;
-
-@media${devices.mobile} {
-  font-size: 1rem;
-} @media${devices.landscapeMobile} {
-  font-size: 1.1rem;
-}
+  ${bigMobile({
+    fontSize: '1rem'
+  })}
+  ${mobile({
+    fontSize: '1.1rem'
+  })}
 `

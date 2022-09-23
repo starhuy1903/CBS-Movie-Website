@@ -51,17 +51,3 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 `
-
-const sizes = {
-    mobile: '575.98px',
-    landscapeMobile: '767.98px',
-    tablet: '991.98px',
-    laptop: '1199.98px',
-}
-
-export const devices = {
-    mobile: `(max-width: ${sizes.mobile})`,
-    landscapeMobile: `(max-width: ${sizes.landscapeMobile})`,
-    tablet: `(max-width: ${sizes.tablet})`,
-    laptop: `(max-width: ${sizes.laptop})`,
-};

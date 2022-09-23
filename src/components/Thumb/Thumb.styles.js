@@ -16,10 +16,6 @@ export const Container = styled.div`
     object-fit: cover;
     transition: all .2s;
     height: 100%;
-
-    @media screen and (max-width: 576px) {
-
-    }
   }
 
   &:hover {

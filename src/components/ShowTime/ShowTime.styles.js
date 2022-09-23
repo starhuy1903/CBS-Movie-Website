@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import {devices} from "../../GlobalStyle";
-
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
   background: var(--medGrey);
   padding: 2rem 1rem;
   display: flex;
-
-  @media${devices.mobile} {
-    flex-direction: column;
-  }
+  ${mobile({
+    flexDirection: 'column'
+  })}
 `
 
 export const Left = styled.div`
@@ -19,12 +17,11 @@ export const Left = styled.div`
   align-items: center;
   padding: 0 1rem;
   border-right: 1px solid var(--lightGrey);
-
-  @media${devices.mobile} {
-    border-bottom: 1px solid var(--lightGrey);
-    border-right: none;
-    padding: 1rem 0;
-  }
+  ${mobile({
+    borderBottom: '1px solid var(--lightGrey)',
+    borderRight: 'none',
+    padding: '1rem 0'
+  })}
 `
 
 export const Title = styled.h3`
@@ -35,9 +32,9 @@ export const Title = styled.h3`
   padding: 4px 15px;
   margin-bottom: 20px;
 
-  @media${devices.landscapeMobile} {
-    font-size: 15px;
-  }
+  ${bigMobile({
+    fontSize: '15px'
+  })}
 `
 
 export const LogoWrapper = styled.div`
@@ -46,11 +43,11 @@ export const LogoWrapper = styled.div`
   align-items: center;
   gap: 10px;
 
-  @media${devices.mobile} {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  ${mobile({
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  })}
 `
 
 export const Logo = styled.img`
@@ -58,6 +55,9 @@ export const Logo = styled.img`
   width: 60px;
   transition: all 0.3s ease;
 
+  ${mobile({
+    width: '40px'
+  })}
   &:hover {
     cursor: pointer;
     border: 2px solid #13b4ff;
@@ -69,10 +69,6 @@ export const Logo = styled.img`
     border-radius: 50%;
     box-shadow: 3px 4px 13px 0px rgba(255, 255, 255, 1);
   }
-
-  @media${devices.mobile} {
-    width: 40px;
-  }
 `
 
 export const Right = styled.div`
@@ -81,10 +77,9 @@ export const Right = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media${devices.mobile} {
-    padding: 1rem 0;
-  }
+  ${mobile({
+    padding: '1rem 0'
+  })}
 `
 
 export const ShowTimeWrapper = styled.div`
@@ -106,11 +101,11 @@ export const CinemaImage = styled.img`
   border-radius: 50%;
   margin-right: 30px;
 
-  @media${devices.mobile} {
-    margin-right: 15px;
-    width: 70px;
-    height: 70px;
-  }
+  ${mobile({
+    marginRight: '15px',
+    width: '70px',
+    height: '70px'
+  })}
 `
 
 export const CinemaDetail = styled.div`
@@ -121,10 +116,9 @@ export const CinemaDetail = styled.div`
 export const CinemaName = styled.h3`
   color: lightgray;
   margin-bottom: 5px;
-
-  @media${devices.mobile} {
-    font-size: 16px;
-  }
+  ${mobile({
+    fontSize: '16px'
+  })}
 `
 
 export const CinemaAddress = styled.p`

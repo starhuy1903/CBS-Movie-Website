@@ -1,7 +1,15 @@
 import styled from 'styled-components'
+import {bigMobile, mobile} from "../../responsive";
 
 export const Container = styled.div`
-  height: 500px;
+  min-height: 90vh;
+
+  ${bigMobile({
+    minHeight: '70vh'
+  })}
+  ${mobile({
+    minHeight: '50vh'
+  })}
 `
 
 export const Banner = styled.div`
@@ -9,5 +17,11 @@ export const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 500px;
+  min-height: 90vh;
+  ${bigMobile({
+    minHeight: '70vh'
+  })}
+  ${mobile({
+    minHeight: '50vh'
+  })}
 `

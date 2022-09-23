@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {mobile} from "../../responsive";
 
 export const Container = styled.div`
  display: flex;
@@ -10,6 +11,11 @@ export const Container = styled.div`
 export const LoaderWrapper = styled.div`
   width: 80px;
   height: 80px;
+ 
+ ${mobile({
+  width: "60px",
+  height: "60px"
+ })}
 `
 
 export const Loader = styled.div`
