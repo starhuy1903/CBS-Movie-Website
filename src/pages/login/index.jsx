@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
-import {authActions, getAuthError, getAuthStatus, signIn} from "../../store/authSlice";
+import {authActions, fetchProfile, getAuthError, getAuthStatus, signIn} from "../../store/authSlice";
 import {
     Bottom,
     Button,
@@ -54,6 +54,7 @@ const Login = () => {
         useEffect(() => {
             if (status === HTTP_STATUS.FULFILLED) {
                 dispatch(authActions.resetStatus())
+                dispatch(fetchProfile())
                 navigate(-1);
             } else if (status === HTTP_STATUS.REJECTED) {
                 dispatch(notificationActions.createAlert({

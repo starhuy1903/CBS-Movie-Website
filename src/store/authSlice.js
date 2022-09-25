@@ -46,6 +46,15 @@ export const fetchProfile = createAsyncThunk(
         })
 
         return res.data.content;
+    },
+    {
+        condition: (__, {getState}) => {
+            const {auth} = getState()
+            if (auth.status === HTTP_STATUS.PENDING)
+                return false;
+
+            return true;
+        }
     })
 
 export const updateProfile = createAsyncThunk(

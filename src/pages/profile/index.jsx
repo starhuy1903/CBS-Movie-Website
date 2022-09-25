@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Buttons, Container, Image, Info, Item, Left, Right, Title} from "./Profile.styles";
 import avatar from "../../assets/images/avatar.png"
