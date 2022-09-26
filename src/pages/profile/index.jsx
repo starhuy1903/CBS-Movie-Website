@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Bottom, Button, Buttons, Container, Image, Info, Item, Left, Right, Title, Top} from "./Profile.styles";
 import avatar from "../../assets/images/avatar.png"
@@ -19,6 +19,10 @@ const Profile = () => {
     const error = useSelector(getAuthError)
 
     const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        dispatch(fetchProfile())
+    }, [dispatch])
 
     const handleLogout = (event) => {
         event.preventDefault();

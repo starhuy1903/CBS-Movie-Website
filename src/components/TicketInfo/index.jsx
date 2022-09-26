@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 import {
     CodeScan,
     Container,
@@ -14,9 +13,6 @@ import {
     Title
 } from "./TicketInfo.styles";
 import Barcode from "../Barcode";
-import {selectCinemaTicket} from "../../store/cinemaTicketSlice";
-import {selectProfile} from "../../store/authSlice";
-import {getSelectedSeats} from "../../store/bookingSlice";
 
 const TicketInfo = ({movieInfo, selectedSeats, profile}) => {
 

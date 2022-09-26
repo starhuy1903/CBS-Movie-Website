@@ -35,11 +35,11 @@ const BookingHistory = ({profile}) => {
     return (
         <>
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}} aria-label="simple table">
+                <Table sx={{minWidth: 550}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell align="center" colSpan={2}>
-                                Booking History
+                                <h1 style={{color: "black"}}>Booking History</h1>
                             </TableCell>
                         </TableRow>
                     </TableHead>
@@ -52,7 +52,7 @@ const BookingHistory = ({profile}) => {
                                     cursor: "pointer",
                                     '&:hover': {backgroundColor: 'lightgray'}
 
-                            }}
+                                }}
                                 onClick={() => handleChooseTicket(row)}
                             >
                                 <TableCell align="center" component="th" scope="row">
@@ -61,17 +61,9 @@ const BookingHistory = ({profile}) => {
                                 </TableCell>
                                 <TableCell align="left">
                                     <div>
-                                        <div>
-                                            <h1 style={{color: 'black', fontSize: '20px'}}>{row.tenPhim}</h1>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                Booking day: {formatDate(row.ngayDat)}
-                                            </div>
-                                        </div>
-                                        <div>
-                                            {row.danhSachGhe.map(item => item.tenGhe + " ")}
-                                        </div>
+                                        <h1 style={{color: 'black', fontSize: '20px'}}>{row.tenPhim}</h1>
+                                        <p style={{color: 'black'}}>Booking day: {formatDate(row.ngayDat)}</p>
+                                        <p style={{color: 'black'}}>Cinema: {row.danhSachGhe[0].tenHeThongRap}</p>
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -86,7 +78,7 @@ const BookingHistory = ({profile}) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography variant="h1" sx={{fontSize: '30px', color: 'black', marginBottom: '1rem'}}>
+                    <Typography variant="h1" sx={{fontSize: '30px', color: 'black', marginBottom: '1rem', textAlign: 'center'}}>
                         Ticket Info
                     </Typography>
                     <MovieInfo>
@@ -125,7 +117,7 @@ const BookingHistory = ({profile}) => {
                         </Details>
                         <CodeScan>
                             {/*{selectedTicket && <Barcode id={selectedTicket.maVe} />}*/}
-                            <Barcode id={selectedTicket?.maVe} />
+                            <Barcode id={selectedTicket?.maVe}/>
                         </CodeScan>
                     </MovieInfo>
                 </Box>
