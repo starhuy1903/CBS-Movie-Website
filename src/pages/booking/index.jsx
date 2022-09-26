@@ -13,8 +13,9 @@ import {
 } from "../../store/cinemaTicketSlice";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import Spinner from "../../components/Spinner";
-import {bookingActions} from "../../store/bookingSlice";
+import {bookingActions, getSelectedSeats} from "../../store/bookingSlice";
 import {notificationActions} from "../../store/notificationSlice";
+import {selectProfile} from "../../store/authSlice";
 
 const Booking = () => {
     const {showId} = useParams();
@@ -23,6 +24,8 @@ const Booking = () => {
     const cinemaTicket = useSelector(selectCinemaTicket)
     const loading = useSelector(getCinemaTicketStatus)
     const error = useSelector(getCinemaTicketError)
+    const selectedSeats = useSelector(getSelectedSeats)
+    const profile = useSelector(selectProfile)
 
     useEffect(() => {
         dispatch(fetchCinemaTicket(showId))
@@ -74,7 +77,7 @@ const Booking = () => {
 
                 </Left>
                 <Right>
-                    <TicketInfo />
+                    <TicketInfo profile={profile} selectedSeats={selectedSeats} movieInfo={cinemaTicket.thongTinPhim} />
                     <Payment />
                 </Right>
             </>

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Buttons, Container, Image, Info, Item, Left, Right, Title} from "./Profile.styles";
+import {Bottom, Button, Buttons, Container, Image, Info, Item, Left, Right, Title, Top} from "./Profile.styles";
 import avatar from "../../assets/images/avatar.png"
 import {authActions, fetchProfile, getAuthError, getAuthStatus, selectProfile} from "../../store/authSlice";
 import {useNavigate} from "react-router-dom";
@@ -9,6 +9,7 @@ import {Backdrop, CircularProgress} from "@mui/material";
 import {HTTP_STATUS} from "../../api/httpStatusConstants";
 import {notificationActions} from "../../store/notificationSlice";
 import Spinner from "../../components/Spinner";
+import BookingHistory from "../../components/BookingHistory";
 
 const Profile = () => {
     const profile = useSelector(selectProfile)
@@ -21,21 +22,20 @@ const Profile = () => {
 
     const handleLogout = (event) => {
         event.preventDefault();
-
         localStorage.removeItem('token');
         dispatch(authActions.setProfile(null));
         dispatch(authActions.resetStatus())
         navigate("/");
     }
 
-    if(loading === HTTP_STATUS.FULFILLED) {
+    if (loading === HTTP_STATUS.FULFILLED) {
         dispatch(notificationActions.createAlert({
             msg: 'Update successful',
             type: "success"
         }))
         dispatch(authActions.resetStatus())
         dispatch(fetchProfile())
-    } else if(loading === HTTP_STATUS.REJECTED) {
+    } else if (loading === HTTP_STATUS.REJECTED) {
         dispatch(notificationActions.createAlert({
             msg: error,
             type: "error"
@@ -44,10 +44,9 @@ const Profile = () => {
         dispatch(authActions.resetError())
     }
 
-
     let content;
     if (!profile) {
-        content = <Spinner />
+        content = <Spinner/>
     } else {
         const {
             taiKhoan,
@@ -55,7 +54,7 @@ const Profile = () => {
             email,
             soDT,
         } = profile;
-        content = (<>
+        content = (<Top>
             <Left>
                 <Image src={avatar}/>
                 <h1>{hoTen}</h1>
@@ -90,13 +89,13 @@ const Profile = () => {
                     </Item>
                 </Info>
             </Right>
-        </>)
+        </Top>)
     }
 
     return (
         <Container>
             {content}
-            {open && <FormInput open={open} setOpen={setOpen} profile={profile} />}
+            {open && <FormInput open={open} setOpen={setOpen} profile={profile}/>}
             {loading === HTTP_STATUS.PENDING &&
                 <Backdrop
                     sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
@@ -105,6 +104,9 @@ const Profile = () => {
                     <CircularProgress color="inherit"/>
                 </Backdrop>
             }
+            <Bottom>
+                <BookingHistory profile={profile}/>
+            </Bottom>
         </Container>
     )
 };

@@ -6,7 +6,7 @@ export const Container = styled.div`
   padding: 2rem 1rem;
   display: flex;
   ${mobile({
-    flexDirection: 'column'
+    flexDirection: 'column',
   })}
 `
 

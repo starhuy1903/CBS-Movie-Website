@@ -18,12 +18,7 @@ import {selectCinemaTicket} from "../../store/cinemaTicketSlice";
 import {selectProfile} from "../../store/authSlice";
 import {getSelectedSeats} from "../../store/bookingSlice";
 
-const TicketInfo = () => {
-    const selectedSeats = useSelector(getSelectedSeats)
-    const cinemaTicket = useSelector(selectCinemaTicket)
-    const profile = useSelector(selectProfile)
-
-    const movieInfo = cinemaTicket.thongTinPhim;
+const TicketInfo = ({movieInfo, selectedSeats, profile}) => {
 
     return (
         <Container>
@@ -73,9 +68,8 @@ const TicketInfo = () => {
                         </DetailItem>
                     </Details>
                     <CodeScan>
-                        <Barcode movieInfo={movieInfo} />
+                        <Barcode id={movieInfo.maLichChieu} />
                     </CodeScan>
-
                 </MovieInfo>
             </Content>
         </Container>

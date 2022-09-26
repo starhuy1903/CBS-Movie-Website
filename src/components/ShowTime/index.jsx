@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {formatDate} from "../../utils/date";
+import {formatTime} from "../../utils/date";
 import {useNavigate} from "react-router-dom";
 import {
     CinemaAddress, CinemaDetail,
@@ -75,7 +75,7 @@ const ShowTime = () => {
                                         key={showTime.maLichChieu}
                                         onClick={() => handleTimeButton(showTime.maLichChieu)}
                                     >
-                                        {formatDate(showTime.ngayChieuGioChieu)}
+                                        {formatTime(showTime.ngayChieuGioChieu)}
                                     </TimeButton>
                                 ))}
                             </TimeWrapper>

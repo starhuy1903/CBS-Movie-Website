@@ -8,8 +8,8 @@ export const Container = styled.div`
   color: white;
   margin: 3rem auto;
   display: flex;
-  min-height: inherit;
-  border-radius: 20px;
+  flex-direction: column;
+  min-height: 100vh;
   overflow: hidden;
 
   ${tablet({
@@ -18,6 +18,19 @@ export const Container = styled.div`
   ${bigMobile({
     flexDirection: 'column',
     width: '90%'
+  })}
+`
+
+export const Top = styled.div`
+  display: flex;
+  border-radius: 20px;
+  overflow: hidden;
+  ${tablet({
+    // width: '80%'
+  })}
+  ${bigMobile({
+    flexDirection: 'column',
+    // width: '90%'
   })}
 `
 
@@ -35,10 +48,12 @@ export const Left = styled.div`
     gap: '2rem'
   })}
   h1 {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
+    margin-top: 1rem;
     ${bigMobile({
-      fontSize: '30px'
+      fontSize: '20px',
+      marginTop: '0.5rem',
     })}
   }
 `
@@ -55,6 +70,10 @@ export const Image = styled.img`
 
 export const Buttons = styled.div`
   display: flex;
+  margin-top: 2rem;
+  ${bigMobile({
+    marginTop: '1rem',
+  })}
 `
 
 export const Button = styled.button`
@@ -146,4 +165,9 @@ export const Item = styled.div`
     font-weight: 600;
     font-size: 18px;
   }
+`
+
+export const Bottom = styled.div`
+  //background: #e1e5e9;
+  margin-top: 2rem;
 `

@@ -1,10 +1,10 @@
 import React from 'react';
 import {useBarcode} from "react-barcodes";
 
-const Barcode = ({movieInfo}) => {
+const Barcode = ({id}) => {
 
     const {inputRef} = useBarcode({
-        value: movieInfo ? movieInfo.maLichChieu : 'No value',
+        value: id || 'No value',
         options: {
             background: 'transparent',
             width: 4,
